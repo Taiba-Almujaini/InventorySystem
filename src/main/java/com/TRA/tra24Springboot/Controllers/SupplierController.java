@@ -1,8 +1,10 @@
 package com.TRA.tra24Springboot.Controllers;
 
 import com.TRA.tra24Springboot.Models.ContactDetails;
-import com.TRA.tra24Springboot.Models.PaymentType;
 import com.TRA.tra24Springboot.Models.Supplier;
+import com.TRA.tra24Springboot.Repositories.SupplierRepository;
+import com.TRA.tra24Springboot.Services.SupplierService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -12,58 +14,29 @@ import java.util.Date;
 
 public class SupplierController {
 
+    @Autowired
+    SupplierRepository supSipplierRepository;
+    @Autowired
+    SupplierService supplierService;
+
     Supplier newSupplier = new Supplier();
 
     @PostMapping("add")
-    public Supplier addSupplier() {
-        Supplier supplier = new Supplier();
-        ContactDetails contactDetails = new ContactDetails();
-
-        contactDetails.setAddress("Muscat");
-        contactDetails.setEmail("bahwan@gmail.com");
-        contactDetails.setPhoneNumber("99999999");
-        contactDetails.setFaxNumber("22222");
-        contactDetails.setPostalCode("11111");
-        supplier.setContactDetails(contactDetails);
-
-
-        supplier.setCompanyName("Bahwan");
-        supplier.setCountry("Oman");
-        supplier.setNextDeliveryTime(new Date());
-        supplier.setComplaints("no complaints");
-        supplier.setPaymentMethods(PaymentType.BANK_TRANSFER);
-        supplier.setShippingMethods("Air Freight ");
-        supplier.setMinimumOrderQuantity("100");
-
-
-        newSupplier = supplier;
-        return supplier;
+    public Supplier addSupplier( Supplier supplier) {
+        return  supplierService.addSupplier(supplier);
 
     }
 
-    @PutMapping("update")
-    public Supplier updateSupplier(@RequestBody Supplier supplierUpdating) {
-
-        ContactDetails pd = supplierUpdating.getContactDetails();
-        pd.setUpdatedDate(new Date());
-
-        supplierUpdating.setContactDetails(pd);
-        supplierUpdating.setUpdatedDate(new Date());
-
-        newSupplier = supplierUpdating;
-        return supplierUpdating;
+    @PutMapping("updateSupplier")
+    public String updateSupplier(@RequestParam Integer id){
+        return  supplierService.updateSupplier(id);
     }
 
 
-    @PostMapping("delete/{id}")
-    public String deleteSupplier(@PathVariable Integer id){
+    @PostMapping("delete")
+    public String deleteSupplier(@RequestParam Integer id){
 
-        if(newSupplier.getId().equals(id)){
-            newSupplier.setIsActive(Boolean.FALSE);
-            System.out.println(newSupplier.toString());
-
-        }
-        return "Success!";
+        return supplierService.deleteSupplier(id);
     }
 
 

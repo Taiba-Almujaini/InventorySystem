@@ -1,10 +1,14 @@
 package com.TRA.tra24Springboot.Controllers;
 
+import com.TRA.tra24Springboot.DTO.ProductDTO;
+import com.TRA.tra24Springboot.Repositories.ProductDetailsRepository;
+import com.TRA.tra24Springboot.Repositories.ProductRepository;
 import com.TRA.tra24Springboot.Models.Product;
 import com.TRA.tra24Springboot.Models.ProductDetails;
+import com.TRA.tra24Springboot.Services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -12,62 +16,34 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/product")
 public class ProductController {
+    @Autowired
+    ProductRepository productRepository;
 
+    @Autowired
+    ProductService productService;
+    @Autowired
+    ProductDetailsRepository productDetailsRepository;
     Product globalProduct = new Product();
 
     @PostMapping("add")
-    public Product addProduct(){
+    public Product addProduct(Product product){
 
-        Product product = new Product();
-
-        ProductDetails productDetails = new ProductDetails();
-        productDetails.setId(1);
-        productDetails.setName("Apple");
-        productDetails.setColor("Green");
-        productDetails.setSize("Small");
-        productDetails.setPrice(10d);
-        productDetails.setCountryOfOrigin("USA");
-        productDetails.setDescription("Apple Product");
-
-        product.setProductDetails(productDetails);
-        product.setSku(UUID.randomUUID());
-        product.setCategory("Electronics");
-        product.setQuantity(1);
-        product.setId(1);
-        product.setIsActive(Boolean.TRUE);
-        product.setCreatedDate(new Date());
-
-        globalProduct = product;
-
-        return product;
+        return productService.addProduct(product);
     }
 
-    @PostMapping("delete/{id}")
-    public String deleteProduct(@PathVariable Integer id){
 
-            if(globalProduct.getId().equals(id)){
-                globalProduct.setIsActive(Boolean.FALSE);
-                System.out.println(globalProduct.toString());
+    @PostMapping("delete")
+    public String deleteProduct(@RequestParam Integer id){
 
-        }
-        return "Success!";
+        return productService.deleteProduct(id);
     }
 
     @PutMapping("update")
-    public Product updateProduct(@RequestBody Product userProduct){
-
-
-        ProductDetails pd = userProduct.getProductDetails();
-        pd.setUpdatedDate(new Date());
-
-        userProduct.setProductDetails(pd);
-        userProduct.setUpdatedDate(new Date());
-
-        globalProduct = userProduct;
-        return globalProduct;
+    public String updateProduct(@RequestParam Integer id, @RequestParam Integer quantity){
+        return  productService.updateProduct(id,quantity);
     }
-    @GetMapping("get")
-    public  Product reportProduct(){
-        return  globalProduct;
+    @GetMapping("getAll")
+    public List<ProductDTO> getProducts(){
+        return productService.getProducts();
     }
 }
