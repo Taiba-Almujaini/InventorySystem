@@ -1,5 +1,7 @@
 package com.TRA.tra24Springboot.Services;
 
+import com.TRA.tra24Springboot.DTO.OrderDTO;
+import com.TRA.tra24Springboot.DTO.SupplierDTO;
 import com.TRA.tra24Springboot.Models.*;
 import com.TRA.tra24Springboot.Repositories.ContactDetailsRepository;
 import com.TRA.tra24Springboot.Repositories.SupplierRepository;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class SupplierService {
@@ -54,6 +57,12 @@ public class SupplierService {
 
         supplierRepository.save(supplier);
         return "Updated Successfully";
+    }
+
+    public List<SupplierDTO> getSupplier(){
+        List <Supplier> suppliers = supplierRepository.findAll();
+
+        return SupplierDTO.convertToDTO(suppliers);
     }
 
 
