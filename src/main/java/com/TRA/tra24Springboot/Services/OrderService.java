@@ -1,6 +1,8 @@
 package com.TRA.tra24Springboot.Services;
 
 
+import com.TRA.tra24Springboot.DTO.OrderDTO;
+import com.TRA.tra24Springboot.DTO.ProductDTO;
 import com.TRA.tra24Springboot.Models.*;
 import com.TRA.tra24Springboot.Repositories.OrderRepository;
 import com.TRA.tra24Springboot.Repositories.ProductDetailsRepository;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -80,7 +83,11 @@ public class OrderService {
         return "Updated Successfully";
     }
 
+    public List<OrderDTO> getOrders(){
+        List <Order> orders = orderRepository.findAll();
 
+        return OrderDTO.convertToDTO(orders);
+    }
 
 
 
