@@ -1,5 +1,7 @@
 package com.TRA.tra24Springboot.Services;
 
+import com.TRA.tra24Springboot.DTO.InventoryDTO;
+import com.TRA.tra24Springboot.DTO.ProductDTO;
 import com.TRA.tra24Springboot.Models.Inventory;
 import com.TRA.tra24Springboot.Models.Product;
 import com.TRA.tra24Springboot.Models.ProductDetails;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -74,4 +77,9 @@ public class InventoryService {
        return  "success";
     }
 
+    public List<InventoryDTO> getInventory(){
+        List <Inventory> inventory = inventoryRepository.findAll();
+
+        return InventoryDTO.convertToDTO(inventory);
+    }
 }
