@@ -1,5 +1,7 @@
 package com.TRA.tra24Springboot.Controllers;
 
+import com.TRA.tra24Springboot.DTO.OrderDTO;
+import com.TRA.tra24Springboot.DTO.SupplierDTO;
 import com.TRA.tra24Springboot.Models.ContactDetails;
 import com.TRA.tra24Springboot.Models.Supplier;
 import com.TRA.tra24Springboot.Repositories.SupplierRepository;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/supplier")
@@ -37,6 +40,11 @@ public class SupplierController {
     public String deleteSupplier(@RequestParam Integer id){
 
         return supplierService.deleteSupplier(id);
+    }
+    @GetMapping("getAll")
+    public List<SupplierDTO> getSupplier(){
+        return supplierService.getSupplier();
+
     }
 
 

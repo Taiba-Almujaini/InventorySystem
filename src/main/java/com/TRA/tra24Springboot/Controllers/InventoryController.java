@@ -1,5 +1,7 @@
 package com.TRA.tra24Springboot.Controllers;
 
+import com.TRA.tra24Springboot.DTO.InventoryDTO;
+import com.TRA.tra24Springboot.DTO.ProductDTO;
 import com.TRA.tra24Springboot.Models.Inventory;
 import com.TRA.tra24Springboot.Models.Product;
 import com.TRA.tra24Springboot.Repositories.InventoryRepository;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/Inventory")
@@ -36,5 +39,9 @@ public class InventoryController {
     @PutMapping("write")
     public String writeOff(Integer id){
        return inventoryService.writeOff(id);
+    }
+    @GetMapping("getAll")
+    public List<InventoryDTO> getInventory(){
+        return inventoryService.getInventory();
     }
 }

@@ -1,5 +1,7 @@
 package com.TRA.tra24Springboot.Controllers;
 
+import com.TRA.tra24Springboot.DTO.OrderDTO;
+import com.TRA.tra24Springboot.DTO.ProductDTO;
 import com.TRA.tra24Springboot.Models.*;
 import com.TRA.tra24Springboot.Repositories.OrderRepository;
 import com.TRA.tra24Springboot.Services.OrderService;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -37,6 +40,10 @@ public class OrderController {
     }
 
 
+    @GetMapping("getAll")
+    public List<OrderDTO> getOrder(){
+        return orderService.getOrders();
 
+    }
 
 }
