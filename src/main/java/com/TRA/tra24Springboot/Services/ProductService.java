@@ -87,6 +87,13 @@ public class ProductService {
     public List<Product>getProductsByCountryOfOrigin(String productCountry) {
         return productRepository.getProductByCountryOfOrigin(productCountry);
     }
+    public  Product getProductsBySKU(UUID productSKU) {
+        return productRepository.getProductBySKU(productSKU);
+    }
+
+    public List<Product> getProductsByCategory(String productCategory) {
+        return productRepository.getProductByCategory(productCategory);
+    }
 
 
 }

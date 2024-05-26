@@ -78,4 +78,16 @@ public class ProductController {
         return productService.getProductsByCountryOfOrigin(country);
 
     }
+    @GetMapping("getBySKU")
+    public Product getProductBySKU(@RequestParam UUID sku) {
+
+        return productService.getProductsBySKU(sku);
+
+    }
+    @GetMapping("getByCategory")
+    public List<Product> getProductByCategory(@RequestParam String category) {
+
+        return productService.getProductsByCategory(category);
+
+}
 }
