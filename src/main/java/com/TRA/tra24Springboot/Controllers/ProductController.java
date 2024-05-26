@@ -46,4 +46,11 @@ public class ProductController {
     public List<ProductDTO> getProducts(){
         return productService.getProducts();
     }
+
+
+    @GetMapping("getByName")
+    public List<Product >getProductByName(@RequestParam String name) {
+        return productService.getProductsByName(name);
+
+    }
 }
