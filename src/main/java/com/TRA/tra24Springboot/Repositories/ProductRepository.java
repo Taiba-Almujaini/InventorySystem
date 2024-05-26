@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
@@ -27,6 +28,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query("SELECT p FROM Product p WHERE p.productDetails.countryOfOrigin = :productCountry")
     List<Product> getProductByCountryOfOrigin (@Param("productCountry") String productCountry);
+
+    @Query("SELECT p FROM Product p WHERE p.sku = :productSKU")
+    Product getProductBySKU (@Param("productSKU") UUID productSKU);
+
+    @Query("SELECT p FROM Product p WHERE p.category = :productCategory")
+    List<Product> getProductByCategory(@Param("productCategory") String productCategory);
 
 
 
