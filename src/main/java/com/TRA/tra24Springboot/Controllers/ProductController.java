@@ -53,4 +53,29 @@ public class ProductController {
         return productService.getProductsByName(name);
 
     }
+    @GetMapping("getByColor")
+    public List<Product >getProductByColor(@RequestParam String color) {
+        return productService.getProductsByColor(color);
+
+    }
+    @GetMapping("getBySize")
+    public List<Product >getProductBySize(@RequestParam String size) {
+        return productService.getProductsBySize(size);
+
+    }
+    @GetMapping("getById")
+    public Product getProductById(@RequestParam Integer id) {
+        return productService.getProductsById(id);
+
+    }
+    @GetMapping("getByPrice")
+    public List<Product> getProductById(@RequestParam Double price) {
+        return productService.getProductsByPrice(price);
+
+    }
+    @GetMapping("getByCountry")
+    public List<Product> getProductByCountryOfOrigin(@RequestParam String country) {
+        return productService.getProductsByCountryOfOrigin(country);
+
+    }
 }

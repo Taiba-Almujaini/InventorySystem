@@ -71,4 +71,22 @@ public class ProductService {
     public List<Product> getProductsByName(String productName) {
         return productRepository.getProductByName(productName);
     }
+    public List<Product> getProductsByColor(String productColor) {
+        return productRepository.getProductByColor(productColor);
+    }
+
+    public List<Product> getProductsBySize(String productSize) {
+        return productRepository.getProductBySize(productSize);
+    }
+    public Product getProductsById(Integer productId) {
+        return productRepository.getProductById(productId);
+    }
+    public List<Product>getProductsByPrice(Double productPrice) {
+        return productRepository.getProductByPrice(productPrice);
+    }
+    public List<Product>getProductsByCountryOfOrigin(String productCountry) {
+        return productRepository.getProductByCountryOfOrigin(productCountry);
+    }
+
+
 }
