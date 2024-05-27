@@ -71,6 +71,13 @@ public class SupplierService {
     }
 
     public List<Supplier> getSuppliersByCompanyName(String companyName) {
-        return supplierRepository.getOrderByCompanyName(companyName);
+        return supplierRepository.getSupplierByCompanyName(companyName);
     }
+
+    public List<Supplier> getSuppliersByCountry(String SupplierCountry) {
+        return supplierRepository.getSupplierByCountry(SupplierCountry);
+    }
+
+
+
 }
