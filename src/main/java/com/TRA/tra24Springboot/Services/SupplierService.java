@@ -66,6 +66,9 @@ public class SupplierService {
     }
 
 
+    public Supplier getSuppliersById(Integer supplierId) {
+        return supplierRepository.getSupplierById(supplierId);
+    }
 
 
 }
