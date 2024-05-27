@@ -70,5 +70,7 @@ public class SupplierService {
         return supplierRepository.getSupplierById(supplierId);
     }
 
-
+    public List<Supplier> getSuppliersByCompanyName(String companyName) {
+        return supplierRepository.getOrderByCompanyName(companyName);
+    }
 }
