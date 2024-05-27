@@ -56,5 +56,11 @@ public class SupplierController {
         return supplierService.getSuppliersByCompanyName(companyName);
 
     }
+    @GetMapping("getByCountry")
+    public List<Supplier> getSupplierByCountry(@RequestParam String country) {
+        return supplierService.getSuppliersByCountry(country);
+
+    }
+
 
 }
