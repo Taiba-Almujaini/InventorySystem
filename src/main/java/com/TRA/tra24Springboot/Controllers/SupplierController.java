@@ -3,6 +3,7 @@ package com.TRA.tra24Springboot.Controllers;
 import com.TRA.tra24Springboot.DTO.OrderDTO;
 import com.TRA.tra24Springboot.DTO.SupplierDTO;
 import com.TRA.tra24Springboot.Models.ContactDetails;
+import com.TRA.tra24Springboot.Models.Product;
 import com.TRA.tra24Springboot.Models.Supplier;
 import com.TRA.tra24Springboot.Repositories.SupplierRepository;
 import com.TRA.tra24Springboot.Services.SupplierService;
@@ -47,5 +48,10 @@ public class SupplierController {
 
     }
 
+    @GetMapping("getSupplierById")
+    public Supplier getSupplierById(@RequestParam Integer id) {
+        return supplierService.getSuppliersById(id);
+
+    }
 
 }
