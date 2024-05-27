@@ -2,15 +2,12 @@ package com.TRA.tra24Springboot.Services;
 
 
 import com.TRA.tra24Springboot.DTO.OrderDTO;
-import com.TRA.tra24Springboot.DTO.ProductDTO;
 import com.TRA.tra24Springboot.Models.*;
 import com.TRA.tra24Springboot.Repositories.OrderRepository;
 import com.TRA.tra24Springboot.Repositories.ProductDetailsRepository;
 import com.TRA.tra24Springboot.Repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -28,7 +25,7 @@ public class OrderService {
     @Autowired
     ProductRepository productRepository;
 
-    public Order createOrder(Order order){
+    public Order createOrder(Order order) {
         Product product = new Product();
         ProductDetails productDetails = new ProductDetails();
         productDetails.setName("Apple");
@@ -38,7 +35,7 @@ public class OrderService {
         productDetails.setCountryOfOrigin("USA");
         productDetails.setDescription("Apple Product");
         productDetails.setCreatedDate(new Date());
-        productDetails=productDetailsRepository.save(productDetails);
+        productDetails = productDetailsRepository.save(productDetails);
         product.setProductDetails(productDetails);
         product.setSku(UUID.randomUUID());
         product.setCategory("Electronics");
@@ -46,7 +43,7 @@ public class OrderService {
         product.setIsActive(Boolean.TRUE);
         product.setCreatedDate(new Date());
 
-        product=productRepository.save(product);
+        product = productRepository.save(product);
         order.setProductsOrdered(Arrays.asList(product));
         order.setCategoryName("Electronics");
         order.setCreatedDate(new Date());
@@ -57,13 +54,12 @@ public class OrderService {
         order.setPaymentType(PaymentType.BANK_TRANSFER);
         order.setDueDate(new Date());
 
-       return orderRepository.save(order);
+        return orderRepository.save(order);
     }
 
 
-
-    public String cancelOrder( Integer id) {
-        Order order=orderRepository.getById(id);
+    public String cancelOrder(Integer id) {
+        Order order = orderRepository.getById(id);
         if (order != null && order.getStatus() == OrderStatus.IN_PROGRESS) {
             order.setStatus(OrderStatus.CANCELED);
             if (order.getPaymentStatus() == PaymentStatus.PAID) {
@@ -73,7 +69,8 @@ public class OrderService {
             return "Order canceled.";
         } else {
             return "Unable to cancel order.";
-        }}
+        }
+    }
 
     public String updateOrder(Integer id) {
         Order order = orderRepository.getById(id);
@@ -83,12 +80,29 @@ public class OrderService {
         return "Updated Successfully";
     }
 
-    public List<OrderDTO> getOrders(){
-        List <Order> orders = orderRepository.findAll();
+    public List<OrderDTO> getOrders() {
+        List<Order> orders = orderRepository.findAll();
 
         return OrderDTO.convertToDTO(orders);
     }
 
 
+    public Order getOrdersById(Integer orderId) {
+        return orderRepository.getOrderById(orderId);
+    }
+    public List<Order> getOrdersCategoryName(String categoryName) {
+        return orderRepository.getOrderByCategoryName(categoryName);
+    }
+    public List<Order> getOrdersByOrderStatus(OrderStatus orderStatus) {
+        return orderRepository.getOrderByOrderStatus(orderStatus);
+    }
+
+    public List<Order> getOrdersByPaymentStatus(PaymentStatus paymentStatus) {
+        return orderRepository.getOrderByPaymentStatus(paymentStatus);
+    }
+
+    public List<Order> getOrdersByPaymentType(PaymentType paymentType) {
+        return orderRepository.getOrderByPaymentType(paymentType);
+    }
 
 }
