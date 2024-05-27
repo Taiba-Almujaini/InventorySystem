@@ -95,5 +95,11 @@ public class ProductService {
         return productRepository.getProductByCategory(productCategory);
     }
 
+    public List<Product> getProductsByQuantity(Integer productQuantity) {
+        return productRepository.getProductByQuantity(productQuantity);
+    }
+    public List<Product> getProductsIsActive(Boolean productIsActive) {
+        return productRepository.getProductIsActive(productIsActive);
+    }
 
 }
