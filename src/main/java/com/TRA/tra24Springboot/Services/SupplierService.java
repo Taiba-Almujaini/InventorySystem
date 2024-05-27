@@ -78,6 +78,10 @@ public class SupplierService {
         return supplierRepository.getSupplierByCountry(SupplierCountry);
     }
 
+    public List<Supplier> getSuppliersByPaymentMethods(PaymentType paymentMethods) {
+        return supplierRepository.getSupplierByPaymentMethods(paymentMethods);
+    }
+
 
 
 }
