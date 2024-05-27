@@ -35,6 +35,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query("SELECT p FROM Product p WHERE p.category = :productCategory")
     List<Product> getProductByCategory(@Param("productCategory") String productCategory);
 
+    @Query("SELECT p FROM Product p WHERE p.quantity = :productQuantity")
+    List<Product> getProductByQuantity(@Param("productQuantity") Integer productQuantity);
+
+
+    @Query("SELECT p FROM Product p WHERE p.isActive = :productIsActive")
+    List<Product> getProductIsActive(@Param("productIsActive") Boolean productIsActive);
 
 
 }
