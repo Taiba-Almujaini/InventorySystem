@@ -90,4 +90,16 @@ public class ProductController {
         return productService.getProductsByCategory(category);
 
 }
+    @GetMapping("getByQuantity")
+    public List<Product> getProductByQuantity(@RequestParam Integer quantity) {
+
+        return productService.getProductsByQuantity(quantity);
+
+    }
+    @GetMapping("getByIsActive")
+    public List<Product> getProductByIsActive(@RequestParam Boolean isActive) {
+
+        return productService.getProductsIsActive(isActive);
+
+    }
 }
