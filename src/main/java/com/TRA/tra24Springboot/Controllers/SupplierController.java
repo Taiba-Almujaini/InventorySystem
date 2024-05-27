@@ -2,9 +2,7 @@ package com.TRA.tra24Springboot.Controllers;
 
 import com.TRA.tra24Springboot.DTO.OrderDTO;
 import com.TRA.tra24Springboot.DTO.SupplierDTO;
-import com.TRA.tra24Springboot.Models.ContactDetails;
-import com.TRA.tra24Springboot.Models.Product;
-import com.TRA.tra24Springboot.Models.Supplier;
+import com.TRA.tra24Springboot.Models.*;
 import com.TRA.tra24Springboot.Repositories.SupplierRepository;
 import com.TRA.tra24Springboot.Services.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +49,11 @@ public class SupplierController {
     @GetMapping("getSupplierById")
     public Supplier getSupplierById(@RequestParam Integer id) {
         return supplierService.getSuppliersById(id);
+
+    }
+    @GetMapping("getByCompanyName")
+    public List<Supplier> getSupplierByCompanyName(@RequestParam String companyName) {
+        return supplierService.getSuppliersByCompanyName(companyName);
 
     }
 
