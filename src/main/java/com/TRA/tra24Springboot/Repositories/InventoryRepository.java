@@ -15,6 +15,9 @@ public interface InventoryRepository extends JpaRepository <Inventory, Integer> 
     @Query("SELECT i FROM Inventory i WHERE i.location = :inventoryLocation")
     List<Inventory> getInventoryByLocation(@Param("inventoryLocation") String inventoryLocation);
 
+    @Query("SELECT i FROM Inventory i WHERE i.manager = :inventoryManager")
+    List<Inventory> getInventoryByManager(@Param("inventoryManager") String inventoryManager);
+
 
 
 }
