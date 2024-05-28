@@ -67,5 +67,10 @@ public class SupplierController {
         return supplierService.getSuppliersByPaymentMethods(paymentType);
 
     }
+    @GetMapping("getByShippingMethods")
+    public List<Supplier> getSupplierByShippingMethods(@RequestParam String shippingMethods) {
+        return supplierService.getSuppliersByShippingMethods(shippingMethods);
+
+    }
 
 }
