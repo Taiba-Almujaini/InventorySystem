@@ -56,4 +56,28 @@ public class InventoryController {
 
     }
 
+    @GetMapping("getBySupplier")
+    public List<Inventory> getInventoryBySupplier(@RequestParam String Supplier) {
+        return inventoryService.getInventoriesBySupplier(Supplier);
+
+    }
+
+    @GetMapping("getByPhoneNumber")
+    public List<Inventory> getInventoryByPhoneNumber(@RequestParam String phoneNumber) {
+        return inventoryService.getInventoriesByPhoneNumber(phoneNumber);
+
+    }
+    @GetMapping("getByOpeningHours")
+    public List<Inventory> getInventoryByOpeningHours(@RequestParam String openingHours) {
+        return inventoryService.getInventoriesByOpeningHours(openingHours);
+
+    }
+    @GetMapping("getByClosingHours")
+    public List<Inventory> getInventoryByClosingHours(@RequestParam String closingHours) {
+        return inventoryService.getInventoriesByClosingHours(closingHours);
+
+    }
+
+
+
 }
