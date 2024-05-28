@@ -3,6 +3,7 @@ package com.TRA.tra24Springboot.Controllers;
 import com.TRA.tra24Springboot.DTO.InventoryDTO;
 import com.TRA.tra24Springboot.DTO.ProductDTO;
 import com.TRA.tra24Springboot.Models.Inventory;
+import com.TRA.tra24Springboot.Models.Order;
 import com.TRA.tra24Springboot.Models.Product;
 import com.TRA.tra24Springboot.Repositories.InventoryRepository;
 import com.TRA.tra24Springboot.Services.InventoryService;
@@ -28,13 +29,6 @@ public class InventoryController {
         return inventoryService.receiveStock(inventory);
     }
 
-    //method for returns
-//    @PutMapping("return")
-//    //method to returns
-//    public Inventory returns( Inventory inventory) {
-//        return  inventoryService.returns(inventory);
-//    }
-
     //method of write-offs
     @PutMapping("write")
     public String writeOff(Integer id){
@@ -44,4 +38,17 @@ public class InventoryController {
     public List<InventoryDTO> getInventory(){
         return inventoryService.getInventory();
     }
+
+    @GetMapping("getByInventoryId")
+    public Inventory getInventoryById(@RequestParam Integer id) {
+        return inventoryService.getInventoriesById(id);
+
+    }
+
+    @GetMapping("getByLocation")
+    public List<Inventory> getInventoryByLocation(@RequestParam String location) {
+        return inventoryService.getInventoriesByLocation(location);
+
+    }
+
 }
