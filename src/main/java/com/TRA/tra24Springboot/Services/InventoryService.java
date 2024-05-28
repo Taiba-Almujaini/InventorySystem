@@ -3,6 +3,7 @@ package com.TRA.tra24Springboot.Services;
 import com.TRA.tra24Springboot.DTO.InventoryDTO;
 import com.TRA.tra24Springboot.DTO.ProductDTO;
 import com.TRA.tra24Springboot.Models.Inventory;
+import com.TRA.tra24Springboot.Models.Order;
 import com.TRA.tra24Springboot.Models.Product;
 import com.TRA.tra24Springboot.Models.ProductDetails;
 import com.TRA.tra24Springboot.Repositories.InventoryRepository;
@@ -58,16 +59,6 @@ public class InventoryService {
     }
 
 
-//    public Inventory returns(Inventory inventory) {
-//
-//        inventory.setId(9);
-//        inventory.setUpdatedDate(new Date());
-//
-//      return inventoryRepository.save(inventory);
-//
-//    }
-
-
     public String writeOff(Integer id){
         Inventory inventory=inventoryRepository.getById(id);
         inventory.setIsActive(Boolean.FALSE);
@@ -81,5 +72,14 @@ public class InventoryService {
         List <Inventory> inventory = inventoryRepository.findAll();
 
         return InventoryDTO.convertToDTO(inventory);
+    }
+
+    public Inventory getInventoriesById(Integer inventoryId)
+    {
+        return inventoryRepository.getInventoryById(inventoryId);
+    }
+
+    public List<Inventory> getInventoriesByLocation(String inventoryLocation) {
+        return inventoryRepository.getInventoryByLocation(inventoryLocation);
     }
 }
