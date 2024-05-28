@@ -38,7 +38,7 @@ public class SupplierService {
         supplier.setNextDeliveryTime(new Date());
         supplier.setComplaints("no complaints");
         supplier.setPaymentMethods(PaymentType.BANK_TRANSFER);
-        supplier.setShippingMethods("Air Freight ");
+        supplier.setShippingMethods("Air Freight");
         supplier.setMinimumOrderQuantity("100");
         supplier.setIsActive(Boolean.TRUE);
 
@@ -81,6 +81,12 @@ public class SupplierService {
     public List<Supplier> getSuppliersByPaymentMethods(PaymentType paymentMethods) {
         return supplierRepository.getSupplierByPaymentMethods(paymentMethods);
     }
+
+    public List<Supplier> getSuppliersByShippingMethods(String shippingMethods) {
+        return supplierRepository.getSupplierByShippingMethods(shippingMethods);
+    }
+
+
 
 
 
