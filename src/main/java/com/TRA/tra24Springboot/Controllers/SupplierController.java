@@ -73,4 +73,10 @@ public class SupplierController {
 
     }
 
+    @GetMapping("getByMOQ")
+    public List<Supplier> getSupplierByMinimumOrderQuantity(@RequestParam String minimumOrderQuantity) {
+        return supplierService.getSuppliersByMinimumOrderQuantity(minimumOrderQuantity);
+
+    }
+
 }
