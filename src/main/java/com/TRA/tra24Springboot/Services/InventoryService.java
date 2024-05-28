@@ -82,4 +82,8 @@ public class InventoryService {
     public List<Inventory> getInventoriesByLocation(String inventoryLocation) {
         return inventoryRepository.getInventoryByLocation(inventoryLocation);
     }
+    public List<Inventory> getInventoriesByManager(String InventoryManger) {
+        return inventoryRepository.getInventoryByManager(InventoryManger);
+    }
+
 }
