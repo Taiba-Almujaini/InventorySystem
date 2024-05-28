@@ -50,5 +50,10 @@ public class InventoryController {
         return inventoryService.getInventoriesByLocation(location);
 
     }
+    @GetMapping("getByManager")
+    public List<Inventory> getInventoryByManager(@RequestParam String manager) {
+        return inventoryService.getInventoriesByManager(manager);
+
+    }
 
 }
