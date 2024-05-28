@@ -85,5 +85,20 @@ public class InventoryService {
     public List<Inventory> getInventoriesByManager(String InventoryManger) {
         return inventoryRepository.getInventoryByManager(InventoryManger);
     }
+    public List<Inventory> getInventoriesBySupplier(String InventorySupplier) {
+        return inventoryRepository.getInventoryBySupplier(InventorySupplier);
+    }
+    public List<Inventory> getInventoriesByPhoneNumber(String phoneNumber) {
+        return inventoryRepository.getInventoryByPhoneNumber(phoneNumber);
+    }
+
+    public List<Inventory> getInventoriesByOpeningHours(String openingHours) {
+        return inventoryRepository.getInventoryByOpeningHours(openingHours);
+    }
+
+    public List<Inventory> getInventoriesByClosingHours(String closingHours) {
+        return inventoryRepository.getInventoryByClosingHours(closingHours);
+    }
+
 
 }
