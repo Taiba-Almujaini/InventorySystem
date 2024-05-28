@@ -87,6 +87,10 @@ public class SupplierService {
     }
 
 
+    public List<Supplier> getSuppliersByMinimumOrderQuantity(String minimumOrderQuantity) {
+        return supplierRepository.getSupplierByMinimumOrderQuantity(minimumOrderQuantity);
+    }
+
 
 
 
