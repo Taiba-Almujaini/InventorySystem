@@ -104,9 +104,13 @@ public class ProductController {
         }
     }
     @GetMapping("getByPrice")
-    public List<Product> getProductById(@RequestParam Double price) {
-        return productService.getProductsByPrice(price);
-
+    public ResponseEntity<?> getProductByPrice(@RequestParam Double price) {
+        try {
+            List<Product> result = productService.getProductsByPrice(price);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Retrieving products by price failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     @GetMapping("getByCountry")
     public List<Product> getProductByCountryOfOrigin(@RequestParam String country) {

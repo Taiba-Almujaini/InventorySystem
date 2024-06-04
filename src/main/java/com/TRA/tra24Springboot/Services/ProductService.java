@@ -97,8 +97,12 @@ public class ProductService {
         }
         return product;
     }
-    public List<Product>getProductsByPrice(Double productPrice) {
-        return productRepository.getProductByPrice(productPrice);
+    public List<Product> getProductsByPrice(Double price) throws Exception {
+        List<Product> products = productRepository.getProductByPrice(price);
+        if (products.isEmpty()) {
+            throw new Exception("No products found with the price: " + price);
+        }
+        return products;
     }
     public List<Product>getProductsByCountryOfOrigin(String productCountry) {
         return productRepository.getProductByCountryOfOrigin(productCountry);
