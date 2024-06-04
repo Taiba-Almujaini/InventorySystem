@@ -90,8 +90,12 @@ public class ProductService {
         }
         return products;
     }
-    public Product getProductsById(Integer productId) {
-        return productRepository.getProductById(productId);
+    public Product getProducstById(Integer id) throws Exception {
+        Product product = productRepository.getProductById(id);
+        if (product == null) {
+            throw new Exception("No product found with ID: " + id);
+        }
+        return product;
     }
     public List<Product>getProductsByPrice(Double productPrice) {
         return productRepository.getProductByPrice(productPrice);

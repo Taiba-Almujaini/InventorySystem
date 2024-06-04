@@ -95,9 +95,13 @@ public class ProductController {
     }
 
     @GetMapping("getById")
-    public Product getProductById(@RequestParam Integer id) {
-        return productService.getProductsById(id);
-
+    public ResponseEntity<?> getProductById(@RequestParam Integer id) {
+        try {
+            Product result = productService.getProducstById(id);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Retrieving product by ID failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     @GetMapping("getByPrice")
     public List<Product> getProductById(@RequestParam Double price) {
