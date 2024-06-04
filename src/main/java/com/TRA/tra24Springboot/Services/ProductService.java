@@ -83,8 +83,12 @@ public class ProductService {
         return products;
     }
 
-    public List<Product> getProductsBySize(String productSize) {
-        return productRepository.getProductBySize(productSize);
+    public List<Product> getProductsBySize(String size) throws Exception {
+        List<Product> products = productRepository.getProductBySize(size);
+        if (products.isEmpty()) {
+            throw new Exception("No products found with the size: " + size);
+        }
+        return products;
     }
     public Product getProductsById(Integer productId) {
         return productRepository.getProductById(productId);
