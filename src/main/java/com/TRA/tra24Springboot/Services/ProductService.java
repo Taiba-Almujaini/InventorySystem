@@ -75,8 +75,12 @@ public class ProductService {
         }
         return products;
     }
-    public List<Product> getProductsByColor(String productColor) {
-        return productRepository.getProductByColor(productColor);
+    public List<Product> getProductsByColor(String color) throws Exception {
+        List<Product> products = productRepository.getProductByColor(color);
+        if (products.isEmpty()) {
+            throw new Exception("No products found with the color: " + color);
+        }
+        return products;
     }
 
     public List<Product> getProductsBySize(String productSize) {
