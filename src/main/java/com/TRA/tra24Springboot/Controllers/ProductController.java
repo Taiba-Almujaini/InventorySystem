@@ -85,10 +85,15 @@ public class ProductController {
         }
     }
     @GetMapping("getBySize")
-    public List<Product >getProductBySize(@RequestParam String size) {
-        return productService.getProductsBySize(size);
-
+    public ResponseEntity<?> getProductBySize(@RequestParam String size) {
+        try {
+            List<Product> result = productService.getProductsBySize(size);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Retrieving products by size failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
     @GetMapping("getById")
     public Product getProductById(@RequestParam Integer id) {
         return productService.getProductsById(id);
