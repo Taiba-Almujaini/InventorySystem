@@ -7,6 +7,8 @@ import com.TRA.tra24Springboot.Models.Product;
 import com.TRA.tra24Springboot.Models.ProductDetails;
 import com.TRA.tra24Springboot.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -31,17 +33,29 @@ public class ProductController {
         return productService.addProduct(product);
     }
 
-
     @PostMapping("delete")
-    public String deleteProduct(@RequestParam Integer id){
-
-        return productService.deleteProduct(id);
+    public <T> ResponseEntity<T> delete(@RequestParam Integer id) throws Exception {
+        try {
+            String result = productService.deleteProduct(id);
+            return (ResponseEntity<T>) new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e){
+            return (ResponseEntity<T>) new ResponseEntity<>("Deleting failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
+
+
 
     @PutMapping("update")
-    public String updateProduct(@RequestParam Integer id, @RequestParam Integer quantity){
-        return  productService.updateProduct(id,quantity);
+    public <T> ResponseEntity<T> updateProduct(@RequestParam Integer id, @RequestParam Integer quantity) throws Exception {
+        try {
+            String result = productService.updateProduct(id, quantity);
+            return (ResponseEntity<T>) new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            return (ResponseEntity<T>) new ResponseEntity<>("Updating failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
     @GetMapping("getAll")
     public List<ProductDTO> getProducts(){
         return productService.getProducts();
@@ -49,9 +63,16 @@ public class ProductController {
 
 
     @GetMapping("getByName")
-    public List<Product >getProductByName(@RequestParam String name) {
-        return productService.getProductsByName(name);
+    public ResponseEntity<?> getProductByName(@RequestParam String name) throws Exception  {
 
+        try {
+
+            List<Product> result=productService.getProductsByName(name);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>("Retrieving products by name failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     @GetMapping("getByColor")
     public List<Product >getProductByColor(@RequestParam String color) {
