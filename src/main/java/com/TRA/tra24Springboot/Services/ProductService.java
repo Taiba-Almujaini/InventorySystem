@@ -68,8 +68,12 @@ public class ProductService {
     }
 
 
-    public List<Product> getProductsByName(String productName) {
-        return productRepository.getProductByName(productName);
+    public List<Product> getProductsByName(String name) throws Exception {
+        List<Product> products = productRepository.getProductByName(name);
+        if (products.isEmpty()) {
+            throw new Exception("No products found with the name: " + name);
+        }
+        return products;
     }
     public List<Product> getProductsByColor(String productColor) {
         return productRepository.getProductByColor(productColor);
