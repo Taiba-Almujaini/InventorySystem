@@ -149,9 +149,12 @@ public class ProductController {
         }
     }
     @GetMapping("getByIsActive")
-    public List<Product> getProductByIsActive(@RequestParam Boolean isActive) {
-
-        return productService.getProductsIsActive(isActive);
-
+    public ResponseEntity<?> getProductByIsActive(@RequestParam Boolean isActive) {
+        try {
+            List<Product> result = productService.getProductsByIsActive(isActive);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Retrieving products by isActive failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

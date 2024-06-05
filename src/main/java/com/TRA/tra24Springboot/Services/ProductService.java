@@ -134,8 +134,11 @@ public class ProductService {
         }
         return products;
     }
-    public List<Product> getProductsIsActive(Boolean productIsActive) {
-        return productRepository.getProductIsActive(productIsActive);
+    public List<Product> getProductsByIsActive(Boolean isActive) throws Exception {
+        List<Product> products = productRepository.getProductIsActive(isActive);
+        if (products.isEmpty()) {
+            throw new Exception("No products found with isActive: " + isActive);
+        }
+        return products;
     }
-
 }
