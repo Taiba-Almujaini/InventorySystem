@@ -7,6 +7,7 @@ import com.TRA.tra24Springboot.Models.Order;
 import com.TRA.tra24Springboot.Models.Product;
 import com.TRA.tra24Springboot.Repositories.InventoryRepository;
 import com.TRA.tra24Springboot.Services.InventoryService;
+import com.TRA.tra24Springboot.Services.MailingService;
 import com.TRA.tra24Springboot.Services.SlackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,8 @@ public class InventoryController {
    InventoryRepository inventoryRepositories;
     @Autowired
     InventoryService inventoryService;
-
+    @Autowired
+    MailingService mailingService;
     @Autowired
     SlackService slackService;
       Inventory globalInventory= new Inventory(); //instance of Inventory Class
@@ -69,6 +71,7 @@ public class InventoryController {
 
     @GetMapping("getByPhoneNumber")
     public List<Inventory> getInventoryByPhoneNumber(@RequestParam String phoneNumber) {
+
         return inventoryService.getInventoriesByPhoneNumber(phoneNumber);
 
     }
@@ -87,5 +90,13 @@ public class InventoryController {
     public void sendMessage(){
         slackService.sendMessage("", "");
     }
+
+
+    @GetMapping("sendEmail")
+    public  void sendEmail(){
+    mailingService.sendSimpleMail();
+   }
+
+
 
 }
