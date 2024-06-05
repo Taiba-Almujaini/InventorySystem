@@ -113,10 +113,14 @@ public class ProductController {
         }
     }
     @GetMapping("getByCountry")
-    public List<Product> getProductByCountryOfOrigin(@RequestParam String country) {
-        return productService.getProductsByCountryOfOrigin(country);
+    public ResponseEntity<?> getProductByCountryOfOrigin(@RequestParam String country) {
+        try {
+            List<Product> result = productService.getProductsByCountryOfOrigin(country);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Retrieving products by country of origin failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }}
 
-    }
     @GetMapping("getBySKU")
     public Product getProductBySKU(@RequestParam UUID sku) {
 

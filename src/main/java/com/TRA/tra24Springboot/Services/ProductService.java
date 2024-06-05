@@ -104,9 +104,14 @@ public class ProductService {
         }
         return products;
     }
-    public List<Product>getProductsByCountryOfOrigin(String productCountry) {
-        return productRepository.getProductByCountryOfOrigin(productCountry);
+    public List<Product> getProductsByCountryOfOrigin(String country) throws Exception {
+        List<Product> products = productRepository.getProductByCountryOfOrigin(country);
+        if (products.isEmpty()) {
+            throw new Exception("No products found from the country: " + country);
+        }
+        return products;
     }
+
     public  Product getProductsBySKU(UUID productSKU) {
         return productRepository.getProductBySKU(productSKU);
     }
