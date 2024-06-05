@@ -122,10 +122,13 @@ public class ProductController {
         }}
 
     @GetMapping("getBySKU")
-    public Product getProductBySKU(@RequestParam UUID sku) {
-
-        return productService.getProductsBySKU(sku);
-
+    public ResponseEntity<?> getProductBySKU(@RequestParam UUID sku) {
+        try {
+            Product result = productService.getProductsBySKU(sku);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Retrieving product by SKU failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     @GetMapping("getByCategory")
     public List<Product> getProductByCategory(@RequestParam String category) {

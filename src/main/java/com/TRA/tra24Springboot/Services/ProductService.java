@@ -112,8 +112,12 @@ public class ProductService {
         return products;
     }
 
-    public  Product getProductsBySKU(UUID productSKU) {
-        return productRepository.getProductBySKU(productSKU);
+    public Product getProductsBySKU(UUID sku) throws Exception {
+        Product product = productRepository.getProductBySKU(sku);
+        if (product == null) {
+            throw new Exception("No product found with SKU: " + sku);
+        }
+        return product;
     }
 
     public List<Product> getProductsByCategory(String productCategory) {
