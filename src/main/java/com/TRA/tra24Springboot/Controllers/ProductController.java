@@ -140,10 +140,13 @@ public class ProductController {
         }
     }
     @GetMapping("getByQuantity")
-    public List<Product> getProductByQuantity(@RequestParam Integer quantity) {
-
-        return productService.getProductsByQuantity(quantity);
-
+    public ResponseEntity<?> getProductByQuantity(@RequestParam Integer quantity) {
+        try {
+            List<Product> result = productService.getProductsByQuantity(quantity);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Retrieving products by quantity failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     @GetMapping("getByIsActive")
     public List<Product> getProductByIsActive(@RequestParam Boolean isActive) {

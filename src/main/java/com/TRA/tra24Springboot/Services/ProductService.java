@@ -127,8 +127,12 @@ public class ProductService {
         }
         return products;
     }
-    public List<Product> getProductsByQuantity(Integer productQuantity) {
-        return productRepository.getProductByQuantity(productQuantity);
+    public List<Product> getProductsByQuantity(Integer quantity) throws Exception {
+        List<Product> products = productRepository.getProductByQuantity(quantity);
+        if (products.isEmpty()) {
+            throw new Exception("No products found with the quantity: " + quantity);
+        }
+        return products;
     }
     public List<Product> getProductsIsActive(Boolean productIsActive) {
         return productRepository.getProductIsActive(productIsActive);
