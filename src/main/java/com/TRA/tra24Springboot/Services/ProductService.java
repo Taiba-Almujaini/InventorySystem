@@ -120,10 +120,13 @@ public class ProductService {
         return product;
     }
 
-    public List<Product> getProductsByCategory(String productCategory) {
-        return productRepository.getProductByCategory(productCategory);
+    public List<Product> getProductsByCategory(String category) throws Exception {
+        List<Product> products = productRepository.getProductByCategory(category);
+        if (products.isEmpty()) {
+            throw new Exception("No products found with the category: " + category);
+        }
+        return products;
     }
-
     public List<Product> getProductsByQuantity(Integer productQuantity) {
         return productRepository.getProductByQuantity(productQuantity);
     }
