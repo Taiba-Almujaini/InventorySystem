@@ -1,6 +1,5 @@
 package com.TRA.tra24Springboot.Controllers;
 
-import com.TRA.tra24Springboot.DTO.OrderDTO;
 import com.TRA.tra24Springboot.DTO.SupplierDTO;
 import com.TRA.tra24Springboot.Models.*;
 import com.TRA.tra24Springboot.Repositories.SupplierRepository;
@@ -8,7 +7,6 @@ import com.TRA.tra24Springboot.Services.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -17,7 +15,7 @@ import java.util.List;
 public class SupplierController {
 
     @Autowired
-    SupplierRepository supSipplierRepository;
+    SupplierRepository supplierRepository;
     @Autowired
     SupplierService supplierService;
 
