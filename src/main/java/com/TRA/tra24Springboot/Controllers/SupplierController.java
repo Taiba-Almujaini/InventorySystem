@@ -5,6 +5,8 @@ import com.TRA.tra24Springboot.Models.*;
 import com.TRA.tra24Springboot.Repositories.SupplierRepository;
 import com.TRA.tra24Springboot.Services.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,10 +35,15 @@ public class SupplierController {
     }
 
 
-    @PostMapping("delete")
-    public String deleteSupplier(@RequestParam Integer id){
 
-        return supplierService.deleteSupplier(id);
+    @PostMapping("delete")
+    public <T> ResponseEntity<T> delete(@RequestParam Integer id) throws Exception {
+        try {
+            String result = supplierService.deleteSupplier(id);
+            return (ResponseEntity<T>) new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            return (ResponseEntity<T>) new ResponseEntity<>("Deleting failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     @GetMapping("getAll")
     public List<SupplierDTO> getSupplier(){

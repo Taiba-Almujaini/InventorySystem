@@ -45,11 +45,15 @@ public class SupplierService {
         return supplierRepository.save(supplier);
 
     }
-    public String deleteSupplier(Integer id){
-        Supplier supplier= supplierRepository.getById(id);
-        supplier.setIsActive(Boolean.FALSE);
-        supplierRepository.save(supplier);
-        return "Success";
+    public String deleteSupplier(Integer id) {
+        try {
+            Supplier supplier = supplierRepository.getById(id);
+            supplier.setIsActive(Boolean.FALSE);
+            supplierRepository.save(supplier);
+            return "Success";
+        } catch (Exception e) {
+            return "Failed to delete supplier with ID " + id + ": " + e.getMessage();
+        }
     }
     public String updateSupplier(Integer id) {
         Supplier supplier = supplierRepository.getById(id);
