@@ -72,10 +72,13 @@ public class SupplierService {
     }
 
 
-    public Supplier getSuppliersById(Integer supplierId) {
-        return supplierRepository.getSupplierById(supplierId);
+    public Supplier getSuppliersById(Integer id) throws Exception {
+        Supplier supplier = supplierRepository.findById(id).orElse(null);
+        if (supplier == null) {
+            throw new Exception("Supplier not found with ID: " + id);
+        }
+        return supplier;
     }
-
     public List<Supplier> getSuppliersByCompanyName(String companyName) throws Exception {
         List<Supplier> suppliers = supplierRepository.getSupplierByCompanyName(companyName);
         if (suppliers.isEmpty()) {
