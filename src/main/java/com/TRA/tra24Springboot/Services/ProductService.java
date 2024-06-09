@@ -52,7 +52,7 @@ public class ProductService {
 
 
     public String updateProduct(Integer id, Integer quantity) {
-        Product product = productRepository.getById(id);
+        Product product = productRepository.getProductById(id);
         product.setQuantity(quantity);
         product.setUpdatedDate(new Date());
 
