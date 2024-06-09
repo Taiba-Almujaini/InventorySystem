@@ -82,10 +82,13 @@ public class SupplierService {
         return suppliers;
     }
 
-    public List<Supplier> getSuppliersByCountry(String SupplierCountry) {
-        return supplierRepository.getSupplierByCountry(SupplierCountry);
+    public List<Supplier> getSuppliersByCountry(String country) throws Exception {
+        List<Supplier> suppliers = supplierRepository.getSupplierByCountry(country);
+        if (suppliers.isEmpty()) {
+            throw new Exception("No suppliers found with the country: " + country);
+        }
+        return suppliers;
     }
-
     public List<Supplier> getSuppliersByPaymentMethods(PaymentType paymentMethods) {
         return supplierRepository.getSupplierByPaymentMethods(paymentMethods);
     }

@@ -66,11 +66,14 @@ public class SupplierController {
         }
     }
     @GetMapping("getByCountry")
-    public List<Supplier> getSupplierByCountry(@RequestParam String country) {
-        return supplierService.getSuppliersByCountry(country);
-
+    public <T> ResponseEntity<T> getSupplierByCountry(@RequestParam String country) {
+        try {
+            List<Supplier> suppliers = supplierService.getSuppliersByCountry(country);
+            return (ResponseEntity<T>) new ResponseEntity<>(suppliers, HttpStatus.OK);
+        } catch (Exception e) {
+            return (ResponseEntity<T>) new ResponseEntity<>("Retrieving suppliers by country failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-
     @GetMapping("getByPaymentMethods")
     public List<Supplier> getSupplierByPaymentMethods(@RequestParam PaymentType paymentType) {
         return supplierService.getSuppliersByPaymentMethods(paymentType);
