@@ -74,8 +74,12 @@ public class SupplierService {
         return supplierRepository.getSupplierById(supplierId);
     }
 
-    public List<Supplier> getSuppliersByCompanyName(String companyName) {
-        return supplierRepository.getSupplierByCompanyName(companyName);
+    public List<Supplier> getSuppliersByCompanyName(String companyName) throws Exception {
+        List<Supplier> suppliers = supplierRepository.getSupplierByCompanyName(companyName);
+        if (suppliers.isEmpty()) {
+            throw new Exception("No suppliers found with the company name: " + companyName);
+        }
+        return suppliers;
     }
 
     public List<Supplier> getSuppliersByCountry(String SupplierCountry) {

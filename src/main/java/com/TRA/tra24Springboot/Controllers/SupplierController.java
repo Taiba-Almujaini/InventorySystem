@@ -57,9 +57,13 @@ public class SupplierController {
 
     }
     @GetMapping("getByCompanyName")
-    public List<Supplier> getSupplierByCompanyName(@RequestParam String companyName) {
-        return supplierService.getSuppliersByCompanyName(companyName);
-
+    public <T> ResponseEntity<T> getSupplierByCompanyName(@RequestParam String companyName) {
+        try {
+            List<Supplier> suppliers = supplierService.getSuppliersByCompanyName(companyName);
+            return (ResponseEntity<T>) new ResponseEntity<>(suppliers, HttpStatus.OK);
+        } catch (Exception e) {
+            return (ResponseEntity<T>) new ResponseEntity<>("Retrieving suppliers by company name failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     @GetMapping("getByCountry")
     public List<Supplier> getSupplierByCountry(@RequestParam String country) {
