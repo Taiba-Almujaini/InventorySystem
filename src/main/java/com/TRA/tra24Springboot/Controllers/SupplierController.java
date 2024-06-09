@@ -90,9 +90,13 @@ public class SupplierController {
     }
 
     @GetMapping("getByMOQ")
-    public List<Supplier> getSupplierByMinimumOrderQuantity(@RequestParam String minimumOrderQuantity) {
-        return supplierService.getSuppliersByMinimumOrderQuantity(minimumOrderQuantity);
-
+    public <T> ResponseEntity<T> getSupplierByMinimumOrderQuantity(@RequestParam String minimumOrderQuantity) {
+        try {
+            List<Supplier> suppliers = supplierService.getSuppliersByMinimumOrderQuantity(minimumOrderQuantity);
+            return (ResponseEntity<T>) new ResponseEntity<>(suppliers, HttpStatus.OK);
+        } catch (Exception e) {
+            return (ResponseEntity<T>) new ResponseEntity<>("Retrieving suppliers by minimum order quantity failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

@@ -101,8 +101,12 @@ public class SupplierService {
     }
 
 
-    public List<Supplier> getSuppliersByMinimumOrderQuantity(String minimumOrderQuantity) {
-        return supplierRepository.getSupplierByMinimumOrderQuantity(minimumOrderQuantity);
+    public List<Supplier> getSuppliersByMinimumOrderQuantity(String minimumOrderQuantity) throws Exception {
+        List<Supplier> suppliers = supplierRepository.getSupplierByMinimumOrderQuantity(minimumOrderQuantity);
+        if (suppliers.isEmpty()) {
+            throw new Exception("No suppliers found with the minimum order quantity: " + minimumOrderQuantity);
+        }
+        return suppliers;
     }
 
 
