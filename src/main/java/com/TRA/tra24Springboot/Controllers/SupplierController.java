@@ -75,9 +75,13 @@ public class SupplierController {
         }
     }
     @GetMapping("getByPaymentMethods")
-    public List<Supplier> getSupplierByPaymentMethods(@RequestParam PaymentType paymentType) {
-        return supplierService.getSuppliersByPaymentMethods(paymentType);
-
+    public <T> ResponseEntity<T> getSupplierByPaymentMethods(@RequestParam PaymentType paymentMethods) {
+        try {
+            List<Supplier> suppliers = supplierService.getSuppliersByPaymentMethods(paymentMethods);
+            return (ResponseEntity<T>) new ResponseEntity<>(suppliers, HttpStatus.OK);
+        } catch (Exception e) {
+            return (ResponseEntity<T>) new ResponseEntity<>("Retrieving suppliers by payment methods failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     @GetMapping("getByShippingMethods")
     public List<Supplier> getSupplierByShippingMethods(@RequestParam String shippingMethods) {

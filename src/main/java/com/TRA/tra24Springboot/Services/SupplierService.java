@@ -89,10 +89,13 @@ public class SupplierService {
         }
         return suppliers;
     }
-    public List<Supplier> getSuppliersByPaymentMethods(PaymentType paymentMethods) {
-        return supplierRepository.getSupplierByPaymentMethods(paymentMethods);
+    public List<Supplier> getSuppliersByPaymentMethods(PaymentType paymentMethods) throws Exception {
+        List<Supplier> suppliers = supplierRepository.getSupplierByPaymentMethods(paymentMethods);
+        if (suppliers.isEmpty()) {
+            throw new Exception("No suppliers found with the payment methods: " + paymentMethods);
+        }
+        return suppliers;
     }
-
     public List<Supplier> getSuppliersByShippingMethods(String shippingMethods) {
         return supplierRepository.getSupplierByShippingMethods(shippingMethods);
     }
