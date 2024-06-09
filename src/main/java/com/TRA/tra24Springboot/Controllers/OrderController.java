@@ -58,9 +58,13 @@ public class OrderController {
         }
     }
     @GetMapping("getByCategoryName")
-    public List<Order> getOrderByCategoryName(@RequestParam String categoryName) {
-        return orderService.getOrdersCategoryName(categoryName);
-
+    public <T> ResponseEntity<T> getOrderByCategoryName(@RequestParam String categoryName) {
+        try {
+            List<Order> orders = orderService.getOrdersByCategoryName(categoryName);
+            return (ResponseEntity<T>) new ResponseEntity<>(orders, HttpStatus.OK);
+        } catch (Exception e) {
+            return (ResponseEntity<T>) new ResponseEntity<>("Retrieving orders by category name failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     @GetMapping("getByOrderStatus")
     public List<Order> getOrderByOrderStatus(@RequestParam OrderStatus status) {

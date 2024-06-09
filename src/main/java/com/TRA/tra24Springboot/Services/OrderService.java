@@ -59,7 +59,7 @@ public class OrderService {
 
 
     public String cancelOrder(Integer id) {
-        Order order = orderRepository.getById(id);
+        Order order = orderRepository.getOrderById(id);
         if (order != null && order.getStatus() == OrderStatus.IN_PROGRESS) {
             order.setStatus(OrderStatus.CANCELED);
             if (order.getPaymentStatus() == PaymentStatus.PAID) {
@@ -73,7 +73,7 @@ public class OrderService {
     }
 
     public String updateOrder(Integer id) throws Exception {
-        Order order = orderRepository.findById(id).orElse(null);
+        Order order = orderRepository.getOrderById(id);
         if (order == null) {
             throw new Exception("Order not found with ID: " + id);
         }
@@ -89,14 +89,18 @@ public class OrderService {
 
 
     public Order getOrdersById(Integer id) throws Exception {
-        Order order = orderRepository.findById(id).orElse(null);
+        Order order = orderRepository.getOrderById(id);
         if (order == null) {
             throw new Exception("Order not found with ID: " + id);
         }
         return order;
     }
-    public List<Order> getOrdersCategoryName(String categoryName) {
-        return orderRepository.getOrderByCategoryName(categoryName);
+    public List<Order> getOrdersByCategoryName(String categoryName) throws Exception {
+        List<Order> orders = orderRepository.getOrderByCategoryName(categoryName);
+        if (orders.isEmpty()) {
+            throw new Exception("No orders found with the category name: " + categoryName);
+        }
+        return orders;
     }
     public List<Order> getOrdersByOrderStatus(OrderStatus orderStatus) {
         return orderRepository.getOrderByOrderStatus(orderStatus);
