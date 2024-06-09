@@ -88,8 +88,12 @@ public class OrderService {
     }
 
 
-    public Order getOrdersById(Integer orderId) {
-        return orderRepository.getOrderById(orderId);
+    public Order getOrdersById(Integer id) throws Exception {
+        Order order = orderRepository.findById(id).orElse(null);
+        if (order == null) {
+            throw new Exception("Order not found with ID: " + id);
+        }
+        return order;
     }
     public List<Order> getOrdersCategoryName(String categoryName) {
         return orderRepository.getOrderByCategoryName(categoryName);
