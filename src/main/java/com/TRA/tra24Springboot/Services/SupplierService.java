@@ -55,12 +55,14 @@ public class SupplierService {
             return "Failed to delete supplier with ID " + id + ": " + e.getMessage();
         }
     }
-    public String updateSupplier(Integer id) {
-        Supplier supplier = supplierRepository.getById(id);
-        supplier.setUpdatedDate(new Date());
+    public String updateSupplier(Integer id) throws Exception {
+        Supplier supplier = supplierRepository.findById(id).orElse(null);
+        if (supplier == null) {
+            throw new Exception("Supplier not found with ID: " + id);
+        }
 
         supplierRepository.save(supplier);
-        return "Updated Successfully";
+        return "Success";
     }
 
     public List<SupplierDTO> getSupplier(){

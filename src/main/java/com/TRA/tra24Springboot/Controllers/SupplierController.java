@@ -30,11 +30,14 @@ public class SupplierController {
     }
 
     @PutMapping("updateSupplier")
-    public String updateSupplier(@RequestParam Integer id){
-        return  supplierService.updateSupplier(id);
+    public <T> ResponseEntity<T> updateSupplier(@RequestParam Integer id) {
+        try {
+            String result = supplierService.updateSupplier(id);
+            return (ResponseEntity<T>) new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            return (ResponseEntity<T>) new ResponseEntity<>("Updating supplier failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-
-
 
     @PostMapping("delete")
     public <T> ResponseEntity<T> delete(@RequestParam Integer id) throws Exception {
