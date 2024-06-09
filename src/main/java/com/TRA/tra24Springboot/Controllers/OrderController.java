@@ -5,6 +5,8 @@ import com.TRA.tra24Springboot.Models.*;
 import com.TRA.tra24Springboot.Repositories.OrderRepository;
 import com.TRA.tra24Springboot.Services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,10 +33,14 @@ public class OrderController {
     }
 
     @PutMapping("updateOrder")
-    public String updateOrder(@RequestParam Integer id){
-        return  orderService.updateOrder(id);
+    public <T> ResponseEntity<T> updateOrder(@RequestParam Integer id) {
+        try {
+            String result = orderService.updateOrder(id);
+            return (ResponseEntity<T>) new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            return (ResponseEntity<T>) new ResponseEntity<>("Updating order failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-
 
     @GetMapping("getAll")
     public List<OrderDTO> getOrder(){

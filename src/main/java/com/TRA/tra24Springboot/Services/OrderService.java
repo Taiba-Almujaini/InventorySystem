@@ -72,14 +72,15 @@ public class OrderService {
         }
     }
 
-    public String updateOrder(Integer id) {
-        Order order = orderRepository.getById(id);
-        order.setUpdatedDate(new Date());
+    public String updateOrder(Integer id) throws Exception {
+        Order order = orderRepository.findById(id).orElse(null);
+        if (order == null) {
+            throw new Exception("Order not found with ID: " + id);
+        }
 
         orderRepository.save(order);
-        return "Updated Successfully";
+        return "Success";
     }
-
     public List<OrderDTO> getOrders() {
         List<Order> orders = orderRepository.findAll();
 
