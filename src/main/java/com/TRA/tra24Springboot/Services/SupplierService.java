@@ -56,7 +56,7 @@ public class SupplierService {
         }
     }
     public String updateSupplier(Integer id) throws Exception {
-        Supplier supplier = supplierRepository.findById(id).orElse(null);
+        Supplier supplier = supplierRepository.getSupplierById(id);
         if (supplier == null) {
             throw new Exception("Supplier not found with ID: " + id);
         }
@@ -73,7 +73,7 @@ public class SupplierService {
 
 
     public Supplier getSuppliersById(Integer id) throws Exception {
-        Supplier supplier = supplierRepository.findById(id).orElse(null);
+        Supplier supplier = supplierRepository.getSupplierById(id);
         if (supplier == null) {
             throw new Exception("Supplier not found with ID: " + id);
         }
