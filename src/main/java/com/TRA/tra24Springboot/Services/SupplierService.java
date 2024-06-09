@@ -96,8 +96,12 @@ public class SupplierService {
         }
         return suppliers;
     }
-    public List<Supplier> getSuppliersByShippingMethods(String shippingMethods) {
-        return supplierRepository.getSupplierByShippingMethods(shippingMethods);
+    public List<Supplier> getSuppliersByShippingMethods(String shippingMethods) throws Exception {
+        List<Supplier> suppliers = supplierRepository.getSupplierByShippingMethods(shippingMethods);
+        if (suppliers.isEmpty()) {
+            throw new Exception("No suppliers found with the shipping methods: " + shippingMethods);
+        }
+        return suppliers;
     }
 
 

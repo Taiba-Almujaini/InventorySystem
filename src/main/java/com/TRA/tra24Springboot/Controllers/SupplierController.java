@@ -84,9 +84,13 @@ public class SupplierController {
         }
     }
     @GetMapping("getByShippingMethods")
-    public List<Supplier> getSupplierByShippingMethods(@RequestParam String shippingMethods) {
-        return supplierService.getSuppliersByShippingMethods(shippingMethods);
-
+    public <T> ResponseEntity<T> getSupplierByShippingMethods(@RequestParam String shippingMethods) {
+        try {
+            List<Supplier> suppliers = supplierService.getSuppliersByShippingMethods(shippingMethods);
+            return (ResponseEntity<T>) new ResponseEntity<>(suppliers, HttpStatus.OK);
+        } catch (Exception e) {
+            return (ResponseEntity<T>) new ResponseEntity<>("Retrieving suppliers by shipping methods failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("getByMOQ")
