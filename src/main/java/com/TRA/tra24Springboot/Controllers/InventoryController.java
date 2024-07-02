@@ -19,30 +19,31 @@ import java.util.List;
 @RestController
 @RequestMapping("/Inventory")
 public class InventoryController {
-   @Autowired
-   InventoryRepository inventoryRepositories;
+    @Autowired
+    InventoryRepository inventoryRepositories;
     @Autowired
     InventoryService inventoryService;
     @Autowired
     MailingService mailingService;
     @Autowired
     SlackService slackService;
-      Inventory globalInventory= new Inventory(); //instance of Inventory Class
-      Product globalProduct = new Product();
+    Inventory globalInventory = new Inventory(); //instance of Inventory Class
+    Product globalProduct = new Product();
 
     //method for receiving new stock
     @PostMapping("receive")
-    public Inventory receiveStock( Inventory inventory) {
+    public Inventory receiveStock(Inventory inventory) {
         return inventoryService.receiveStock(inventory);
     }
 
     //method of write-offs
     @PutMapping("write")
-    public String writeOff(Integer id){
-       return inventoryService.writeOff(id);
+    public String writeOff(Integer id) {
+        return inventoryService.writeOff(id);
     }
+
     @GetMapping("getAll")
-    public List<InventoryDTO> getInventory(){
+    public List<InventoryDTO> getInventory() {
         return inventoryService.getInventory();
     }
 
@@ -57,6 +58,7 @@ public class InventoryController {
         return inventoryService.getInventoriesByLocation(location);
 
     }
+
     @GetMapping("getByManager")
     public List<Inventory> getInventoryByManager(@RequestParam String manager) {
         return inventoryService.getInventoriesByManager(manager);
@@ -75,11 +77,13 @@ public class InventoryController {
         return inventoryService.getInventoriesByPhoneNumber(phoneNumber);
 
     }
+
     @GetMapping("getByOpeningHours")
     public List<Inventory> getInventoryByOpeningHours(@RequestParam String openingHours) {
         return inventoryService.getInventoriesByOpeningHours(openingHours);
 
     }
+
     @GetMapping("getByClosingHours")
     public List<Inventory> getInventoryByClosingHours(@RequestParam String closingHours) {
         return inventoryService.getInventoriesByClosingHours(closingHours);
@@ -87,16 +91,15 @@ public class InventoryController {
     }
 
     @GetMapping("messages")
-    public void sendMessage(){
+    public void sendMessage() {
         slackService.sendMessage("", "");
     }
 
 
     @GetMapping("sendEmail")
-    public  void sendEmail(){
-    mailingService.sendSimpleMail();
-   }
-
+    public void sendEmail() {
+        mailingService.sendSimpleMail();
+    }
 
 
 }
