@@ -102,10 +102,13 @@ public class OrderService {
         }
         return orders;
     }
-    public List<Order> getOrdersByOrderStatus(OrderStatus orderStatus) {
-        return orderRepository.getOrderByOrderStatus(orderStatus);
+    public List<Order> getOrdersByOrderStatus(OrderStatus status) throws Exception {
+        List<Order> orders = orderRepository.getOrderByOrderStatus(status);
+        if (orders.isEmpty()) {
+            throw new Exception("No orders found with the order status: " + status);
+        }
+        return orders;
     }
-
     public List<Order> getOrdersByPaymentStatus(PaymentStatus paymentStatus) {
         return orderRepository.getOrderByPaymentStatus(paymentStatus);
     }
