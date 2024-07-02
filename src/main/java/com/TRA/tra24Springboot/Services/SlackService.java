@@ -16,10 +16,7 @@ public class SlackService {
 
     public void sendMessage(String channel, String message) {
         Slack slack = Slack.getInstance();
-
-
-        channel = "#taiba";
-        message = " ..";
+        
         ChatPostMessageRequest request = ChatPostMessageRequest.builder()
                 .channel(channel)
                 .text(message)
