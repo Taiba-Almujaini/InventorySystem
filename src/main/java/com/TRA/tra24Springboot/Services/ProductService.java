@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -140,5 +141,25 @@ public class ProductService {
             throw new Exception("No products found with isActive: " + isActive);
         }
         return products;
+    }
+    /**public List<Product> getLowStockProducts() {
+        List<Product> products = productRepository.findAll();
+        List<Product> lowStockProducts = new ArrayList<>();
+        for (Product product : products) {
+            if (product.getQuantity() <1) {
+                lowStockProducts.add(product);
+            }
+        }
+        return lowStockProducts;
+    }**/
+    public List<Product> getLowStockProducts() {
+        List<Product> products = productRepository.findAll();
+        List<Product> lowStockProducts = new ArrayList<>();
+        for (Product product : products) {
+            if (product.getQuantity() < 50) {
+                lowStockProducts.add(product);
+            }
+        }
+        return lowStockProducts;
     }
 }

@@ -6,9 +6,11 @@ import com.TRA.tra24Springboot.Repositories.ProductRepository;
 import com.TRA.tra24Springboot.Models.Product;
 import com.TRA.tra24Springboot.Models.ProductDetails;
 import com.TRA.tra24Springboot.Services.ProductService;
+import com.TRA.tra24Springboot.Services.SlackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -32,6 +34,8 @@ public class ProductController {
 
         return productService.addProduct(product);
     }
+    @Autowired
+    SlackService slackService;
 
     @PostMapping("delete")
     public <T> ResponseEntity<T> delete(@RequestParam Integer id) throws Exception {
@@ -157,4 +161,29 @@ public class ProductController {
             return new ResponseEntity<>("Retrieving products by isActive failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+  /**  @GetMapping("checkStock")
+    public List<Product> getLowStockReport() {
+        // Fetch low stock products
+        slackService.sendMessage("taiba","low stock");
+        return productService.getLowStockProducts();
+
+    }**/
+  @Scheduled(cron = "0 0/6 * * *")
+  @GetMapping("/checkStock")
+  public List<Product> getLowStockReport() {
+
+      List<Product> lowStockProducts = productService.getLowStockProducts();
+      if (!lowStockProducts.isEmpty()) {
+          StringBuilder messageBuilder = new StringBuilder();
+          messageBuilder.append("Low stock alert:\n");
+          for (Product product : lowStockProducts) {
+              messageBuilder.append("Product ID: ").append(product.getId())
+                      .append(", Product: ").append(product.getProductDetails().getName())
+                      .append(", Quantity: ").append(product.getQuantity()).append("\n");
+          }
+          slackService.sendMessage("taiba", messageBuilder.toString());
+      }
+      return lowStockProducts;
+  }
+
 }
