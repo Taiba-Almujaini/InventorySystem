@@ -44,7 +44,6 @@ public class InvoiceService {
         Date dueDate = DateHelperUtils.addDays(today, days);
         return invoiceRepository.getInvoicesByDueDateBetween(today, dueDate);
     }
-
     public List<Invoice> getInvoicesCreatedBetween(Date startDate, Date endDate) {
         return invoiceRepository.getInvoicesCreatedBetween(startDate, endDate);
     }
