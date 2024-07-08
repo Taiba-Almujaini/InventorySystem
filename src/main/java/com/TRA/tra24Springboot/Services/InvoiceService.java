@@ -45,6 +45,18 @@ public class InvoiceService {
         return invoiceRepository.getInvoicesByDueDateBetween(today, dueDate);
     }
 
+    public List<Invoice> getInvoicesCreatedBetween(Date startDate, Date endDate) {
+        return invoiceRepository.getInvoicesCreatedBetween(startDate, endDate);
+    }
+    public List<Invoice> getPaidInvoicesBetween(Date startDate, Date endDate) {
+        return invoiceRepository.getPaidInvoicesBetween(startDate, endDate);
+    }
+    //method to get overdue invoices
+    public List<Invoice> getOverDueInvoices(){
+        Date today = new Date();
+        return invoiceRepository.getOverdueInvoices(today);
+    }
+
 }
 
 
