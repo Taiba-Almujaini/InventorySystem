@@ -168,7 +168,7 @@ public class ProductController {
         return productService.getLowStockProducts();
 
     }**/
-  @Scheduled(cron = "0 0/6 * * *")
+  @Scheduled(cron = "0 0 0/6 * * *")
   @GetMapping("/checkStock")
   public List<Product> getLowStockReport() {
 
