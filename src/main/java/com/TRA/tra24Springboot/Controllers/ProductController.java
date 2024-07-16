@@ -27,7 +27,6 @@ public class ProductController {
     ProductService productService;
     @Autowired
     ProductDetailsRepository productDetailsRepository;
-    Product globalProduct = new Product();
 
     @PostMapping("add")
     public Product addProduct(Product product){

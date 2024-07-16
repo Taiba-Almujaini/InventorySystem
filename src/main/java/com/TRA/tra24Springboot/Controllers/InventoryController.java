@@ -28,7 +28,6 @@ public class InventoryController {
     @Autowired
     SlackService slackService;
     Inventory globalInventory = new Inventory(); //instance of Inventory Class
-    Product globalProduct = new Product();
 
     //method for receiving new stock
     @PostMapping("receive")
