@@ -10,6 +10,9 @@ import java.util.UUID;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product extends BaseEntity {
 
 
