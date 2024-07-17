@@ -1,5 +1,6 @@
 package com.TRA.tra24Springboot.Repositories;
 
+import com.TRA.tra24Springboot.Models.Inventory;
 import com.TRA.tra24Springboot.Models.Product;
 import com.TRA.tra24Springboot.Models.ProductDetails;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +27,7 @@ class ProductRepositoryTest {
     @Autowired
     private ProductDetailsRepository productDetailsRepository;
     private UUID sku;
+    Integer productId;
     @BeforeEach
     void setUp() {
         ProductDetails productDetails = ProductDetails.builder()
@@ -47,9 +49,16 @@ class ProductRepositoryTest {
                 .sku(sku)
                 .build();
         product.setIsActive(Boolean.TRUE);
-        productRepository.save(product);
+        productId =  productRepository.save(product).getId();
     }
 
+
+    @Test
+    void getProductById() {
+        Product productById = productRepository.findById(productId).orElse(null);
+        assertThat(productById).isNotNull();
+        assertThat(productById.getId()).isEqualTo(productId);
+    }
     @Test
     void getProductByName() {
         List<Product> product = productRepository.getProductByName("phone");

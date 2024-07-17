@@ -1,6 +1,7 @@
 package com.TRA.tra24Springboot.Repositories;
 
 import com.TRA.tra24Springboot.Models.Inventory;
+import com.TRA.tra24Springboot.Models.Invoice;
 import com.TRA.tra24Springboot.Models.PaymentType;
 import com.TRA.tra24Springboot.Models.Supplier;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 class SupplierRepositoryTest {
 @Autowired SupplierRepository supplierRepository;
-
+    Integer supplierId;
     @BeforeEach
     void setUp() {
         Supplier supplier = Supplier.builder()
@@ -31,10 +32,15 @@ class SupplierRepositoryTest {
                 .shippingMethods("Air Freight")
                 .minimumOrderQuantity("100")
                 .build();
-        supplierRepository.save(supplier);
+        supplierId =  supplierRepository.save(supplier).getId();
 
     }
-
+    @Test
+    void getSupplierById() {
+        Supplier SupplierById = supplierRepository.findById(supplierId).orElse(null);
+        assertThat(SupplierById).isNotNull();
+        assertThat(SupplierById.getId()).isEqualTo(supplierId);
+    }
 
     @Test
     void getSupplierByCompanyName() {

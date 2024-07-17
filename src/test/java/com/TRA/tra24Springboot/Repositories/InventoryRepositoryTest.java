@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class InventoryRepositoryTest {
 @Autowired
 InventoryRepository inventoryRepository;
+    Integer inventoryId;
     @BeforeEach
     void setUp() {
         Inventory inventory = Inventory.builder()
@@ -31,8 +32,15 @@ InventoryRepository inventoryRepository;
                 .openingHours("8 AM")
                 .closingHours("8 PM")
                 .build();
-        inventoryRepository.save(inventory);
+        inventoryId =  inventoryRepository.save(inventory).getId();
 
+    }
+
+    @Test
+    void getInventoryById() {
+        Inventory inventoryById = inventoryRepository.findById(inventoryId).orElse(null);
+        assertThat(inventoryById).isNotNull();
+        assertThat(inventoryById.getId()).isEqualTo(inventoryId);
     }
     @Test
     void getInventoryByLocation() {

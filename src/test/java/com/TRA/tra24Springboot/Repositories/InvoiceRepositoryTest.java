@@ -25,15 +25,23 @@ class InvoiceRepositoryTest {
 @Autowired
 InvoiceRepository invoiceRepository;
 Date date= new Date();
-Date dueDate=DateHelperUtils.addDays(date, 5);
+    Integer invoiceId;
+    Date dueDate=DateHelperUtils.addDays(date, 5);
     @BeforeEach
     void setUp() {
         Invoice invoice = Invoice.builder()
                 .dueDate(dueDate)
                 .build();
         invoice.setCreatedDate(date);
-        invoiceRepository.save(invoice);
+        invoiceId =  invoiceRepository.save(invoice).getId();
 
+
+    }
+    @Test
+    void getInvoiceById() {
+        Invoice invoiceById = invoiceRepository.findById(invoiceId).orElse(null);
+        assertThat(invoiceById).isNotNull();
+        assertThat(invoiceById.getId()).isEqualTo(invoiceId);
     }
     @Test
     void getInvoiceByCreatedDate() {
