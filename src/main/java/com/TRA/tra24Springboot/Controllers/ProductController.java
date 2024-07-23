@@ -7,6 +7,7 @@ import com.TRA.tra24Springboot.Models.Product;
 import com.TRA.tra24Springboot.Models.ProductDetails;
 import com.TRA.tra24Springboot.Services.ProductService;
 import com.TRA.tra24Springboot.Services.SlackService;
+import com.TRA.tra24Springboot.logging.TrackExecutionTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -133,6 +134,7 @@ public class ProductController {
             return new ResponseEntity<>("Retrieving product by SKU failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @TrackExecutionTime
     @GetMapping("getByCategory")
     public ResponseEntity<?> getProductByCategory(@RequestParam String category) {
         try {
