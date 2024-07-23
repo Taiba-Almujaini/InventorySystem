@@ -9,6 +9,7 @@ import com.TRA.tra24Springboot.Models.ProductDetails;
 import com.TRA.tra24Springboot.Repositories.InventoryRepository;
 import com.TRA.tra24Springboot.Repositories.ProductDetailsRepository;
 import com.TRA.tra24Springboot.Repositories.ProductRepository;
+import com.TRA.tra24Springboot.logging.TrackExecutionTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -28,7 +29,7 @@ public class InventoryService {
     @Autowired
     ProductRepository productRepository;
 
-
+    @TrackExecutionTime
     public Inventory receiveStock(Inventory inventory){
 
         ProductDetails productDetails = new ProductDetails();
@@ -58,7 +59,7 @@ public class InventoryService {
         return  inventoryRepository.save(inventory);
     }
 
-
+    @TrackExecutionTime
     public String writeOff(Integer id){
         Inventory inventory=inventoryRepository.getById(id);
         inventory.setIsActive(Boolean.FALSE);
@@ -67,34 +68,39 @@ public class InventoryService {
        inventoryRepository.save(inventory);
        return  "success";
     }
-
+    @TrackExecutionTime
     public List<InventoryDTO> getInventory(){
         List <Inventory> inventory = inventoryRepository.findAll();
 
         return InventoryDTO.convertToDTO(inventory);
     }
-
+    @TrackExecutionTime
     public Inventory getInventoriesById(Integer inventoryId)
     {
         return inventoryRepository.getInventoryById(inventoryId);
     }
-
+    @TrackExecutionTime
     public List<Inventory> getInventoriesByLocation(String inventoryLocation) {
         return inventoryRepository.getInventoryByLocation(inventoryLocation);
     }
+    @TrackExecutionTime
     public List<Inventory> getInventoriesByManager(String InventoryManger) {
         return inventoryRepository.getInventoryByManager(InventoryManger);
     }
+    @TrackExecutionTime
     public List<Inventory> getInventoriesBySupplier(String InventorySupplier) {
         return inventoryRepository.getInventoryBySupplier(InventorySupplier);
     }
+    @TrackExecutionTime
     public List<Inventory> getInventoriesByPhoneNumber(String phoneNumber) {
         return inventoryRepository.getInventoryByPhoneNumber(phoneNumber);
     }
+    @TrackExecutionTime
 
     public List<Inventory> getInventoriesByOpeningHours(String openingHours) {
         return inventoryRepository.getInventoryByOpeningHours(openingHours);
     }
+    @TrackExecutionTime
 
     public List<Inventory> getInventoriesByClosingHours(String closingHours) {
         return inventoryRepository.getInventoryByClosingHours(closingHours);

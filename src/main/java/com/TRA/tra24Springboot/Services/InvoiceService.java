@@ -4,6 +4,7 @@ import com.TRA.tra24Springboot.Models.Invoice;
 import com.TRA.tra24Springboot.Models.Product;
 import com.TRA.tra24Springboot.Repositories.InvoiceRepository;
 import com.TRA.tra24Springboot.Utils.DateHelperUtils;
+import com.TRA.tra24Springboot.logging.TrackExecutionTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class InvoiceService {
     InvoiceRepository invoiceRepository;
     @Autowired
     ProductService productService;
-
+    @TrackExecutionTime
     public Invoice createInvoice(Invoice invoice) throws Exception {
         Product product=new Product();
         Product products=productService.addProduct(product);
@@ -32,24 +33,30 @@ public class InvoiceService {
         return  invoiceRepository.save(invoice);
 
     }
+    @TrackExecutionTime
     public Invoice getBInvoiceById(Integer id) {
         return invoiceRepository.getInvoiceById(id);
     }
+    @TrackExecutionTime
     public List<Invoice> getInvoiceByDueDate(Date dueDate) {
         return invoiceRepository.getInvoiceByDueDate(dueDate);
     }
     // method to get invoices due in next few days
+    @TrackExecutionTime
     public List<Invoice> getInvoiceDueInNextDays(Integer days){
         Date today = new Date();
         Date dueDate = DateHelperUtils.addDays(today, days);
         return invoiceRepository.getInvoicesByDueDateBetween(today, dueDate);
     }
+    @TrackExecutionTime
     public List<Invoice> getInvoicesCreatedBetween(Date startDate, Date endDate) {
         return invoiceRepository.getInvoicesCreatedBetween(startDate, endDate);
     }
+    @TrackExecutionTime
     public List<Invoice> getPaidInvoicesBetween(Date startDate, Date endDate) {
         return invoiceRepository.getPaidInvoicesBetween(startDate, endDate);
     }
+    @TrackExecutionTime
     //method to get overdue invoices
     public List<Invoice> getOverDueInvoices(){
         Date today = new Date();

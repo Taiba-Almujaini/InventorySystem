@@ -5,6 +5,7 @@ import com.TRA.tra24Springboot.DTO.SupplierDTO;
 import com.TRA.tra24Springboot.Models.*;
 import com.TRA.tra24Springboot.Repositories.ContactDetailsRepository;
 import com.TRA.tra24Springboot.Repositories.SupplierRepository;
+import com.TRA.tra24Springboot.logging.TrackExecutionTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class SupplierService {
     ContactDetailsRepository contactDetailsRepository;
 
 
-
+    @TrackExecutionTime
     public Supplier addSupplier(Supplier supplier) {
      ContactDetails contactDetails = new ContactDetails();
 
@@ -45,6 +46,7 @@ public class SupplierService {
         return supplierRepository.save(supplier);
 
     }
+    @TrackExecutionTime
     public String deleteSupplier(Integer id) {
         try {
             Supplier supplier = supplierRepository.getById(id);
@@ -55,6 +57,7 @@ public class SupplierService {
             return "Failed to delete supplier with ID " + id + ": " + e.getMessage();
         }
     }
+    @TrackExecutionTime
     public String updateSupplier(Integer id) throws Exception {
         Supplier supplier = supplierRepository.getSupplierById(id);
         if (supplier == null) {
@@ -64,14 +67,14 @@ public class SupplierService {
         supplierRepository.save(supplier);
         return "Success";
     }
-
+    @TrackExecutionTime
     public List<SupplierDTO> getSupplier(){
         List <Supplier> suppliers = supplierRepository.findAll();
 
         return SupplierDTO.convertToDTO(suppliers);
     }
 
-
+    @TrackExecutionTime
     public Supplier getSuppliersById(Integer id) throws Exception {
         Supplier supplier = supplierRepository.getSupplierById(id);
         if (supplier == null) {
@@ -79,6 +82,7 @@ public class SupplierService {
         }
         return supplier;
     }
+    @TrackExecutionTime
     public List<Supplier> getSuppliersByCompanyName(String companyName) throws Exception {
         List<Supplier> suppliers = supplierRepository.getSupplierByCompanyName(companyName);
         if (suppliers.isEmpty()) {
@@ -86,7 +90,7 @@ public class SupplierService {
         }
         return suppliers;
     }
-
+    @TrackExecutionTime
     public List<Supplier> getSuppliersByCountry(String country) throws Exception {
         List<Supplier> suppliers = supplierRepository.getSupplierByCountry(country);
         if (suppliers.isEmpty()) {
@@ -94,6 +98,7 @@ public class SupplierService {
         }
         return suppliers;
     }
+    @TrackExecutionTime
     public List<Supplier> getSuppliersByPaymentMethods(PaymentType paymentMethods) throws Exception {
         List<Supplier> suppliers = supplierRepository.getSupplierByPaymentMethods(paymentMethods);
         if (suppliers.isEmpty()) {
@@ -101,6 +106,7 @@ public class SupplierService {
         }
         return suppliers;
     }
+    @TrackExecutionTime
     public List<Supplier> getSuppliersByShippingMethods(String shippingMethods) throws Exception {
         List<Supplier> suppliers = supplierRepository.getSupplierByShippingMethods(shippingMethods);
         if (suppliers.isEmpty()) {
@@ -109,7 +115,7 @@ public class SupplierService {
         return suppliers;
     }
 
-
+    @TrackExecutionTime
     public List<Supplier> getSuppliersByMinimumOrderQuantity(String minimumOrderQuantity) throws Exception {
         List<Supplier> suppliers = supplierRepository.getSupplierByMinimumOrderQuantity(minimumOrderQuantity);
         if (suppliers.isEmpty()) {

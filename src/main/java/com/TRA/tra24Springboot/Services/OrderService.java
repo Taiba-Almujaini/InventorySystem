@@ -6,6 +6,7 @@ import com.TRA.tra24Springboot.Models.*;
 import com.TRA.tra24Springboot.Repositories.OrderRepository;
 import com.TRA.tra24Springboot.Repositories.ProductDetailsRepository;
 import com.TRA.tra24Springboot.Repositories.ProductRepository;
+import com.TRA.tra24Springboot.logging.TrackExecutionTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class OrderService {
 
     @Autowired
     ProductRepository productRepository;
-
+    @TrackExecutionTime
     public Order createOrder(Order order) {
         Product product = new Product();
         ProductDetails productDetails = new ProductDetails();
@@ -57,7 +58,7 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-
+    @TrackExecutionTime
     public String cancelOrder(Integer id) {
         Order order = orderRepository.getOrderById(id);
         if (order != null && order.getStatus() == OrderStatus.IN_PROGRESS) {
@@ -71,7 +72,7 @@ public class OrderService {
             return "Unable to cancel order.";
         }
     }
-
+    @TrackExecutionTime
     public String updateOrder(Integer id) throws Exception {
         Order order = orderRepository.getOrderById(id);
         if (order == null) {
@@ -81,13 +82,14 @@ public class OrderService {
         orderRepository.save(order);
         return "Success";
     }
+    @TrackExecutionTime
     public List<OrderDTO> getOrders() {
         List<Order> orders = orderRepository.findAll();
 
         return OrderDTO.convertToDTO(orders);
     }
 
-
+    @TrackExecutionTime
     public Order getOrdersById(Integer id) throws Exception {
         Order order = orderRepository.getOrderById(id);
         if (order == null) {
@@ -95,6 +97,7 @@ public class OrderService {
         }
         return order;
     }
+    @TrackExecutionTime
     public List<Order> getOrdersByCategoryName(String categoryName) throws Exception {
         List<Order> orders = orderRepository.getOrderByCategoryName(categoryName);
         if (orders.isEmpty()) {
@@ -102,6 +105,7 @@ public class OrderService {
         }
         return orders;
     }
+    @TrackExecutionTime
     public List<Order> getOrdersByOrderStatus(OrderStatus status) throws Exception {
         List<Order> orders = orderRepository.getOrderByOrderStatus(status);
         if (orders.isEmpty()) {
@@ -109,10 +113,11 @@ public class OrderService {
         }
         return orders;
     }
+    @TrackExecutionTime
     public List<Order> getOrdersByPaymentStatus(PaymentStatus paymentStatus) {
         return orderRepository.getOrderByPaymentStatus(paymentStatus);
     }
-
+    @TrackExecutionTime
     public List<Order> getOrdersByPaymentType(PaymentType paymentType) {
         return orderRepository.getOrderByPaymentType(paymentType);
     }

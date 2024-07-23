@@ -5,6 +5,7 @@ import com.TRA.tra24Springboot.Models.Product;
 import com.TRA.tra24Springboot.Models.ProductDetails;
 import com.TRA.tra24Springboot.Repositories.ProductDetailsRepository;
 import com.TRA.tra24Springboot.Repositories.ProductRepository;
+import com.TRA.tra24Springboot.logging.TrackExecutionTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class ProductService {
    @Autowired
    ProductDetailsRepository productDetailsRepository;
 
-
+    @TrackExecutionTime
     public Product addProduct(Product product){
 
        ProductDetails productDetails = new ProductDetails();
@@ -44,6 +45,7 @@ public class ProductService {
 
 
    }
+    @TrackExecutionTime
     public String deleteProduct(Integer id){
       Product product=productRepository.getById(id);
        product.setIsActive(Boolean.FALSE);
@@ -51,7 +53,7 @@ public class ProductService {
        return "Success";
     }
 
-
+    @TrackExecutionTime
     public String updateProduct(Integer id, Integer quantity) {
         Product product = productRepository.getProductById(id);
         product.setQuantity(quantity);
@@ -61,14 +63,14 @@ public class ProductService {
         return "Updated Successfully";
     }
 
-
+    @TrackExecutionTime
     public List<ProductDTO> getProducts(){
         List <Product> products = productRepository.findAll();
 
         return ProductDTO.convertToDTO(products);
     }
 
-
+    @TrackExecutionTime
     public List<Product> getProductsByName(String name) throws Exception {
         List<Product> products = productRepository.getProductByName(name);
         if (products.isEmpty()) {
@@ -76,6 +78,7 @@ public class ProductService {
         }
         return products;
     }
+    @TrackExecutionTime
     public List<Product> getProductsByColor(String color) throws Exception {
         List<Product> products = productRepository.getProductByColor(color);
         if (products.isEmpty()) {
@@ -83,7 +86,7 @@ public class ProductService {
         }
         return products;
     }
-
+    @TrackExecutionTime
     public List<Product> getProductsBySize(String size) throws Exception {
         List<Product> products = productRepository.getProductBySize(size);
         if (products.isEmpty()) {
@@ -91,6 +94,7 @@ public class ProductService {
         }
         return products;
     }
+    @TrackExecutionTime
     public Product getProducstById(Integer id) throws Exception {
         Product product = productRepository.getProductById(id);
         if (product == null) {
@@ -98,6 +102,7 @@ public class ProductService {
         }
         return product;
     }
+    @TrackExecutionTime
     public List<Product> getProductsByPrice(Double price) throws Exception {
         List<Product> products = productRepository.getProductByPrice(price);
         if (products.isEmpty()) {
@@ -105,6 +110,7 @@ public class ProductService {
         }
         return products;
     }
+    @TrackExecutionTime
     public List<Product> getProductsByCountryOfOrigin(String country) throws Exception {
         List<Product> products = productRepository.getProductByCountryOfOrigin(country);
         if (products.isEmpty()) {
@@ -112,6 +118,7 @@ public class ProductService {
         }
         return products;
     }
+    @TrackExecutionTime
 
     public Product getProductsBySKU(UUID sku) throws Exception {
         Product product = productRepository.getProductBySKU(sku);
@@ -120,7 +127,7 @@ public class ProductService {
         }
         return product;
     }
-
+    @TrackExecutionTime
     public List<Product> getProductsByCategory(String category) throws Exception {
         List<Product> products = productRepository.getProductByCategory(category);
         if (products.isEmpty()) {
@@ -128,6 +135,7 @@ public class ProductService {
         }
         return products;
     }
+    @TrackExecutionTime
     public List<Product> getProductsByQuantity(Integer quantity) throws Exception {
         List<Product> products = productRepository.getProductByQuantity(quantity);
         if (products.isEmpty()) {
@@ -135,6 +143,7 @@ public class ProductService {
         }
         return products;
     }
+    @TrackExecutionTime
     public List<Product> getProductsByIsActive(Boolean isActive) throws Exception {
         List<Product> products = productRepository.getProductIsActive(isActive);
         if (products.isEmpty()) {
@@ -142,16 +151,7 @@ public class ProductService {
         }
         return products;
     }
-    /**public List<Product> getLowStockProducts() {
-        List<Product> products = productRepository.findAll();
-        List<Product> lowStockProducts = new ArrayList<>();
-        for (Product product : products) {
-            if (product.getQuantity() <1) {
-                lowStockProducts.add(product);
-            }
-        }
-        return lowStockProducts;
-    }**/
+    @TrackExecutionTime
     public List<Product> getLowStockProducts() {
         List<Product> products = productRepository.findAll();
         List<Product> lowStockProducts = new ArrayList<>();
