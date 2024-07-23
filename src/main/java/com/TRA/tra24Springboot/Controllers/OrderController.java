@@ -4,6 +4,7 @@ import com.TRA.tra24Springboot.DTO.OrderDTO;
 import com.TRA.tra24Springboot.Models.*;
 import com.TRA.tra24Springboot.Repositories.OrderRepository;
 import com.TRA.tra24Springboot.Services.OrderService;
+import com.TRA.tra24Springboot.logging.TrackExecutionTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +28,14 @@ public class OrderController {
 
 
     @PostMapping("cancel")
+    @TrackExecutionTime
     public String cancelOrder(@RequestParam Integer id ){
 
         return orderService.cancelOrder(id);
     }
 
     @PutMapping("updateOrder")
+    @TrackExecutionTime
     public <T> ResponseEntity<T> updateOrder(@RequestParam Integer id) {
         try {
             String result = orderService.updateOrder(id);
@@ -43,12 +46,14 @@ public class OrderController {
     }
 
     @GetMapping("getAll")
+    @TrackExecutionTime
     public List<OrderDTO> getOrder(){
         return orderService.getOrders();
 
     }
 
     @GetMapping("getByOrderId")
+    @TrackExecutionTime
     public <T> ResponseEntity<T> getOrderById(@RequestParam Integer id) {
         try {
             Order order = orderService.getOrdersById(id);
@@ -58,6 +63,7 @@ public class OrderController {
         }
     }
     @GetMapping("getByCategoryName")
+    @TrackExecutionTime
     public <T> ResponseEntity<T> getOrderByCategoryName(@RequestParam String categoryName) {
         try {
             List<Order> orders = orderService.getOrdersByCategoryName(categoryName);
@@ -67,6 +73,7 @@ public class OrderController {
         }
     }
     @GetMapping("getByOrderStatus")
+    @TrackExecutionTime
     public <T> ResponseEntity<T> getOrderByOrderStatus(@RequestParam OrderStatus status) {
         try {
             List<Order> orders = orderService.getOrdersByOrderStatus(status);
@@ -76,11 +83,13 @@ public class OrderController {
         }
     }
     @GetMapping("getByPaymentStatus")
+    @TrackExecutionTime
     public List<Order> getOrderByPaymentStatus(@RequestParam PaymentStatus status) {
         return orderService.getOrdersByPaymentStatus(status);
 
     }
     @GetMapping("getByPaymentType")
+    @TrackExecutionTime
     public List<Order> getOrderByPaymentType(@RequestParam PaymentType type) {
         return orderService.getOrdersByPaymentType(type);
 
