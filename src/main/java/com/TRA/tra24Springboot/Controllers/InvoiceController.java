@@ -30,14 +30,12 @@ public class InvoiceController {
     @Autowired
     SlackService slackService;
     @PostMapping("createInvoice")
-    @TrackExecutionTime
     public Invoice createInvoice(Invoice invoice) throws Exception {
         slackService.sendMessage("taiba","new invoice created");
         return invoiceService.createInvoice(invoice);
     }
     //@Scheduled(cron = "0 0 9 * * ?")
     @PostMapping("dueDate")
-    @TrackExecutionTime
     public void senDueDateReminder() {
         Integer remainingDays = 1;
         List<Invoice> invoices = invoiceService.getInvoiceDueInNextDays(remainingDays);
@@ -52,7 +50,6 @@ public class InvoiceController {
     }
     //@Scheduled(cron = "0 0 9 * * 0") //runs every Sunday
     @PostMapping("weeklyReport")
-    @TrackExecutionTime
     public void weeklyInvoiceReport(){
         Date today = new Date();
         Date startDate = DateHelperUtils.subtractDays(today, 6); //during the last 7 days
@@ -86,7 +83,6 @@ public class InvoiceController {
 
     //@Scheduled(cron = "0 0 9 1 * ?") //runs on the first day of every month at 9:00 AM
     @PostMapping("monthlyReport")
-    @TrackExecutionTime
     public void monthlyInvoiceReport(){
 
         //calculating start and end dates for the current month

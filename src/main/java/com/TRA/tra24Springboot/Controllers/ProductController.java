@@ -38,7 +38,6 @@ public class ProductController {
     SlackService slackService;
 
     @PostMapping("delete")
-    @TrackExecutionTime
     public <T> ResponseEntity<T> delete(@RequestParam Integer id) throws Exception {
         try {
             String result = productService.deleteProduct(id);
@@ -52,7 +51,6 @@ public class ProductController {
 
 
     @PutMapping("update")
-    @TrackExecutionTime
     public <T> ResponseEntity<T> updateProduct(@RequestParam Integer id, @RequestParam Integer quantity) throws Exception {
         try {
             String result = productService.updateProduct(id, quantity);
@@ -63,14 +61,12 @@ public class ProductController {
     }
 
     @GetMapping("getAll")
-    @TrackExecutionTime
     public List<ProductDTO> getProducts(){
         return productService.getProducts();
     }
 
 
     @GetMapping("getByName")
-    @TrackExecutionTime
     public ResponseEntity<?> getProductByName(@RequestParam String name) throws Exception  {
 
         try {
@@ -83,7 +79,6 @@ public class ProductController {
         }
     }
     @GetMapping("getByColor")
-    @TrackExecutionTime
     public ResponseEntity<?> getProductByColor(@RequestParam String color) throws Exception {
 
         try {
@@ -94,7 +89,6 @@ public class ProductController {
         }
     }
     @GetMapping("getBySize")
-    @TrackExecutionTime
     public ResponseEntity<?> getProductBySize(@RequestParam String size) {
         try {
             List<Product> result = productService.getProductsBySize(size);
@@ -105,7 +99,6 @@ public class ProductController {
     }
 
     @GetMapping("getById")
-    @TrackExecutionTime
     public ResponseEntity<?> getProductById(@RequestParam Integer id) {
         try {
             Product result = productService.getProducstById(id);
@@ -115,7 +108,6 @@ public class ProductController {
         }
     }
     @GetMapping("getByPrice")
-    @TrackExecutionTime
     public ResponseEntity<?> getProductByPrice(@RequestParam Double price) {
         try {
             List<Product> result = productService.getProductsByPrice(price);
@@ -125,7 +117,6 @@ public class ProductController {
         }
     }
     @GetMapping("getByCountry")
-    @TrackExecutionTime
     public ResponseEntity<?> getProductByCountryOfOrigin(@RequestParam String country) {
         try {
             List<Product> result = productService.getProductsByCountryOfOrigin(country);
@@ -135,7 +126,6 @@ public class ProductController {
         }}
 
     @GetMapping("getBySKU")
-    @TrackExecutionTime
     public ResponseEntity<?> getProductBySKU(@RequestParam UUID sku) {
         try {
             Product result = productService.getProductsBySKU(sku);
@@ -144,7 +134,6 @@ public class ProductController {
             return new ResponseEntity<>("Retrieving product by SKU failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @TrackExecutionTime
     @GetMapping("getByCategory")
     public ResponseEntity<?> getProductByCategory(@RequestParam String category) {
         try {
@@ -155,7 +144,6 @@ public class ProductController {
         }
     }
     @GetMapping("getByQuantity")
-    @TrackExecutionTime
     public ResponseEntity<?> getProductByQuantity(@RequestParam Integer quantity) {
         try {
             List<Product> result = productService.getProductsByQuantity(quantity);
@@ -165,7 +153,6 @@ public class ProductController {
         }
     }
     @GetMapping("getByIsActive")
-    @TrackExecutionTime
     public ResponseEntity<?> getProductByIsActive(@RequestParam Boolean isActive) {
         try {
             List<Product> result = productService.getProductsByIsActive(isActive);
@@ -174,7 +161,6 @@ public class ProductController {
             return new ResponseEntity<>("Retrieving products by isActive failed! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @TrackExecutionTime
   @Scheduled(cron = "0 0 0/6 * * *")
   @GetMapping("/checkStock")
   public List<Product> getLowStockReport() {

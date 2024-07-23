@@ -25,14 +25,12 @@ public class SupplierController {
     Supplier newSupplier = new Supplier();
 
     @PostMapping("add")
-    @TrackExecutionTime
     public Supplier addSupplier( Supplier supplier) {
         return  supplierService.addSupplier(supplier);
 
     }
 
     @PutMapping("updateSupplier")
-    @TrackExecutionTime
     public <T> ResponseEntity<T> updateSupplier(@RequestParam Integer id) {
         try {
             String result = supplierService.updateSupplier(id);
@@ -43,7 +41,6 @@ public class SupplierController {
     }
 
     @PostMapping("delete")
-    @TrackExecutionTime
     public <T> ResponseEntity<T> delete(@RequestParam Integer id) throws Exception {
         try {
             String result = supplierService.deleteSupplier(id);
@@ -53,14 +50,12 @@ public class SupplierController {
         }
     }
     @GetMapping("getAll")
-    @TrackExecutionTime
     public List<SupplierDTO> getSupplier(){
         return supplierService.getSupplier();
 
     }
 
     @GetMapping("getSupplierById")
-    @TrackExecutionTime
     public <T> ResponseEntity<T> getSupplierById(@RequestParam Integer id) {
         try {
             Supplier supplier = supplierService.getSuppliersById(id);
@@ -71,7 +66,6 @@ public class SupplierController {
     }
 
     @GetMapping("getByCompanyName")
-    @TrackExecutionTime
     public <T> ResponseEntity<T> getSupplierByCompanyName(@RequestParam String companyName) {
         try {
             List<Supplier> suppliers = supplierService.getSuppliersByCompanyName(companyName);
@@ -81,7 +75,6 @@ public class SupplierController {
         }
     }
     @GetMapping("getByCountry")
-    @TrackExecutionTime
     public <T> ResponseEntity<T> getSupplierByCountry(@RequestParam String country) {
         try {
             List<Supplier> suppliers = supplierService.getSuppliersByCountry(country);
@@ -91,7 +84,6 @@ public class SupplierController {
         }
     }
     @GetMapping("getByPaymentMethods")
-    @TrackExecutionTime
     public <T> ResponseEntity<T> getSupplierByPaymentMethods(@RequestParam PaymentType paymentMethods) {
         try {
             List<Supplier> suppliers = supplierService.getSuppliersByPaymentMethods(paymentMethods);
@@ -101,7 +93,6 @@ public class SupplierController {
         }
     }
     @GetMapping("getByShippingMethods")
-    @TrackExecutionTime
     public <T> ResponseEntity<T> getSupplierByShippingMethods(@RequestParam String shippingMethods) {
         try {
             List<Supplier> suppliers = supplierService.getSuppliersByShippingMethods(shippingMethods);
@@ -112,7 +103,6 @@ public class SupplierController {
     }
 
     @GetMapping("getByMOQ")
-    @TrackExecutionTime
     public <T> ResponseEntity<T> getSupplierByMinimumOrderQuantity(@RequestParam String minimumOrderQuantity) {
         try {
             List<Supplier> suppliers = supplierService.getSuppliersByMinimumOrderQuantity(minimumOrderQuantity);
