@@ -12,12 +12,16 @@ public class InventoryDTO {
     Integer inventoryId;
     List<ProductDTO>products;
     String location;
+    String manager;
+    String phoneNumber;
 
 
 
     public static InventoryDTO convertToDTO(Inventory inventory) {
         InventoryDTO inventoryDTO = new InventoryDTO();
         inventoryDTO.setInventoryId(inventory.getId());
+        inventoryDTO.setManager(inventory.getManager());
+        inventoryDTO.setPhoneNumber(inventory.getPhoneNumber());
         inventoryDTO.setLocation(inventory.getLocation());
         inventoryDTO.setProducts(ProductDTO.convertToDTO(inventory.getProducts()));
 
