@@ -4,7 +4,6 @@ import com.TRA.tra24Springboot.logging.TrackExecutionTime;
 import com.slack.api.Slack;
 import com.slack.api.methods.request.chat.ChatPostMessageRequest;
 import com.slack.api.methods.response.chat.ChatPostMessageResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
